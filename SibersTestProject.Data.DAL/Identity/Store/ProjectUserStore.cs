@@ -7,7 +7,7 @@ namespace SibersTestProject.Data.DAL.Identity.Store
 {
     public class ProjectUserStore : UserStore<ProjectUser, ProjectRole, Guid, ProjectUserLogin, ProjectUserRole, ProjectUserClaim>
     {
-        public ProjectUserStore(IProjectContext context) 
+        public ProjectUserStore(IProjectDbContext context) 
             : base(context.DbContext) {
         }
     }

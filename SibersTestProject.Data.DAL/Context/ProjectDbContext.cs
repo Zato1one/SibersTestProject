@@ -8,7 +8,7 @@ using SibersTestProject.Data.DAL.Mappings;
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public class ProjectDbContext : IdentityDbContext<ProjectUser, ProjectRole, Guid, ProjectUserLogin, ProjectUserRole, ProjectUserClaim>, IProjectContext
+    public class ProjectDbContext : IdentityDbContext<ProjectUser, ProjectRole, Guid, ProjectUserLogin, ProjectUserRole, ProjectUserClaim>, IProjectDbContext
     {
         public ProjectDbContext()
             : base("StringConnection")

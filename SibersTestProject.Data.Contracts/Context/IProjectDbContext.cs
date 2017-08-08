@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SibersTestProject.Data.Contracts.Context
 {
-    public interface IProjectContext : IDisposable
+    public interface IProjectDbContext : IDisposable
     {
         DbContext DbContext { get; }
     }
