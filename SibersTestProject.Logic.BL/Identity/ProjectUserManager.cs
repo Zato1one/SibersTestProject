@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using SibersTestProject.Data.DAL.Context;
 using SibersTestProject.Data.DAL.Identity.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,6 @@ namespace SibersTestProject.Logic.BL.Identity
                 RequireUppercase = false,
             };
 
-        }
+        }     
     }
 }

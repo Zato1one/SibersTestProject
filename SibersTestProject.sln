@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibersTestProject.Logic.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibersTestProject.Logic.BL", "SibersTestProject.Logic.BL\SibersTestProject.Logic.BL.csproj", "{BE8C69B1-0454-41DF-AE6B-0C7B57F93DBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibersTestProject.Common", "SibersTestProject.Common\SibersTestProject.Common.csproj", "{F72BC15C-2760-44C9-9175-6646E99BD4DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{BE8C69B1-0454-41DF-AE6B-0C7B57F93DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE8C69B1-0454-41DF-AE6B-0C7B57F93DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE8C69B1-0454-41DF-AE6B-0C7B57F93DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F72BC15C-2760-44C9-9175-6646E99BD4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72BC15C-2760-44C9-9175-6646E99BD4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72BC15C-2760-44C9-9175-6646E99BD4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72BC15C-2760-44C9-9175-6646E99BD4DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +60,6 @@ Global
 		{9C6259FE-31E9-4B6F-8F28-2C24D894E3A0} = {66F07200-0353-4483-BE7A-790F4FEE99F6}
 		{1A9C0673-B0E8-4669-9D94-BD8A00E6BFB2} = {0EDCE118-52FC-4B1F-B6CC-C6E74A61E820}
 		{BE8C69B1-0454-41DF-AE6B-0C7B57F93DBF} = {0EDCE118-52FC-4B1F-B6CC-C6E74A61E820}
+		{F72BC15C-2760-44C9-9175-6646E99BD4DA} = {BFCB3603-280A-4B00-879B-A561762C172A}
 	EndGlobalSection
 EndGlobal

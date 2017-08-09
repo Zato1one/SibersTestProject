@@ -78,6 +78,10 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SibersTestProject.Common\SibersTestProject.Common.csproj">
+      <Project>{f72bc15c-2760-44c9-9175-6646e99bd4da}</Project>
+      <Name>SibersTestProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SibersTestProject.Data.Contracts\SibersTestProject.Data.Contracts.csproj">
       <Project>{9c6259fe-31e9-4b6f-8f28-2c24d894e3a0}</Project>
       <Name>SibersTestProject.Data.Contracts</Name>

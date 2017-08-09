@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SibersTestProject.Logic.BL.Service.Base
+namespace SibersTestProject.Logic.Contracts.Service
 {
-    public interface IService
+    public interface IPhotoPresentationService
     {
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A9C0673-B0E8-4669-9D94-BD8A00E6BFB2}</ProjectGuid>
+    <ProjectGuid>{F72BC15C-2760-44C9-9175-6646E99BD4DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SibersTestProject.Logic.Contracts</RootNamespace>
-    <AssemblyName>SibersTestProject.Logic.Contracts</AssemblyName>
+    <RootNamespace>SibersTestProject.Common</RootNamespace>
+    <AssemblyName>SibersTestProject.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,9 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\GalleryModel.cs" />
+    <Compile Include="Model\PhotoModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Base\IService.cs" />
-    <Compile Include="Service\IPhotoPresentationService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

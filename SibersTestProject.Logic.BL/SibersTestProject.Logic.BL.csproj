@@ -60,9 +60,17 @@
     <Compile Include="Identity\ProjectRoleManager.cs" />
     <Compile Include="Identity\ProjectUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Base\IService.cs" />
+    <Compile Include="Service\PhotoPresentationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SibersTestProject.Common\SibersTestProject.Common.csproj">
+      <Project>{f72bc15c-2760-44c9-9175-6646e99bd4da}</Project>
+      <Name>SibersTestProject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SibersTestProject.Data.Contracts\SibersTestProject.Data.Contracts.csproj">
+      <Project>{9c6259fe-31e9-4b6f-8f28-2c24d894e3a0}</Project>
+      <Name>SibersTestProject.Data.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SibersTestProject.Data.DAL\SibersTestProject.Data.DAL.csproj">
       <Project>{c48fa20a-c99d-48b8-a96d-257324b2a304}</Project>
       <Name>SibersTestProject.Data.DAL</Name>
@@ -74,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Identity\Mappings\" />
+    <Folder Include="Service\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
