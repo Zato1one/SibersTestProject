@@ -13,6 +13,7 @@ namespace SibersTestProject.Data.DAL.Context
         public ProjectDbContext()
             : base("StringConnection")
         {
+            System.Data.Entity.Database.SetInitializer(new ProjectDbContextConfiguration());
         }
         public DbContext DbContext
         {

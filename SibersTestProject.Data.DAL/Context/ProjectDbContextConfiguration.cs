@@ -3,17 +3,18 @@ using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Data.DAL.Identity.Store;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public sealed class ProjectDbContextConfiguration : DbMigrationsConfiguration<ProjectDbContext>
+    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseAlways<ProjectDbContext>
     {
-        public ProjectDbContextConfiguration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
+        //public ProjectDbContextConfiguration()
+        //{
+        //    AutomaticMigrationsEnabled = false;
+        //}
 
         protected override void Seed(ProjectDbContext context)
         {
@@ -38,14 +39,14 @@ namespace SibersTestProject.Data.DAL.Context
                 Id = new Guid("1ABB568A-2ECD-43E6-B814-BE164CF2F6F4"),
                 Email = "SuperAdmin@gmail.com",
                 UserName = "SuperAdmin",
-                FirstName = "AdminFirstName",
-                LastName = "AdminLastName",
+                FirstName = "SuperAdminFirstName",
+                LastName = "SuperAdminLastName"
             };
-
+            var adminPassword = "SuperAdminPassword";
             //Create system SuperAdmin if notExist
             if (userManager.FindByName(admin.UserName) == null)
             {
-                userManager.Create(admin, "password");
+                userManager.Create(admin, adminPassword);
                 userManager.SetLockoutEnabled(admin.Id, false);
             }
 

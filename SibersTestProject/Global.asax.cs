@@ -11,6 +11,7 @@ namespace SibersTestProject
     {
         protected void Application_Start()
         {
+            AppBootstrapper.Init();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

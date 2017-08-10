@@ -27,7 +27,7 @@ namespace SibersTestProject.Data.DAL.Identity.Entities
         [Required]
         [MaxLength(60)]
         public string LastName { get; set; }
-  
+
         public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Gallery> Galleries { get; set; }
 
