@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.DAL.Identity.Entities;
+using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Model;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace SibersTestProject.Controllers
     [AllowAnonymous]
     public class AccountController : BaseController
     {
+        public AccountController(IServicesHost servicesHost)
+            : base(servicesHost) {
+        }
         // GET: Account
         public ActionResult Index()
         {

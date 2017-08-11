@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SibersTestProject.Common.Model;
+using SibersTestProject.Logic.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace SibersTestProject.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController(IServicesHost servicesHost)
+            : base(servicesHost) {
+        }
         // GET: Home
         [Authorize]
         public ActionResult Index()
@@ -25,7 +29,7 @@ namespace SibersTestProject.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     UserName = user.UserName,
-                    Role = UserManager.GetRoles(user.Id).ToList()
+                    Roles = UserManager.GetRoles(user.Id).ToList()
                 });
             }
             return View(viewUsers);

@@ -40,9 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServicesHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Base\ICrudService.cs" />
     <Compile Include="Service\Base\IService.cs" />
-    <Compile Include="Service\IPhotoPresentationService.cs" />
+    <Compile Include="Service\IPhotoService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SibersTestProject.Common\SibersTestProject.Common.csproj">
+      <Project>{f72bc15c-2760-44c9-9175-6646e99bd4da}</Project>
+      <Name>SibersTestProject.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

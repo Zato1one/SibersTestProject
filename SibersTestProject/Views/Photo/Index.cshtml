@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SibersTestProject.Common.Model.PhotoModel>
+@{
+    ViewBag.Title = "Hello World";
+}
+<h2>Hello World</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @{                
+                var base64 = Convert.ToBase64String(item.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <td><div class="previewImage" style="background-image: url(@imgSrc)"></div></td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+        </tr>
+    }
+</table>
