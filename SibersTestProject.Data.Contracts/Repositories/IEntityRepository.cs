@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace SibersTestProject.Data.Contracts.Repositories
 {
-    public interface IEntityRepository
-    {
-
-    }
+    public interface IEntityRepository { };
     public interface IEntityRepository<T> : IEntityRepository
     {
         IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate);

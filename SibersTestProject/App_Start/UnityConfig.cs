@@ -11,6 +11,11 @@ using SibersTestProject.Logic.Contracts.Service;
 using SibersTestProject.Logic.BL.Service;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.BL;
+using Unity.AutoRegistration;
+using SibersTestProject.Logic.Contracts.Service.Base;
+using Microsoft.Practices.ObjectBuilder2;
+using SibersTestProject.Data.Contracts.Repositories;
+using SibersTestProject.Data.DAL.Repositories;
 
 namespace SibersTestProject.App_Start
 {
@@ -42,15 +47,13 @@ namespace SibersTestProject.App_Start
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+            //// NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
+            //// container.LoadConfiguration();
 
-            // TODO: Register your types here
-            //container.RegisterType<IProjectDbContext, ProjectDbContext>();
-            //container.RegisterType<IUnitOfWork, UnitOfWork>();
-            //container.RegisterType<IServicesHost, ServicesHost>();
-            //container.RegisterType<IPhotoService, PhotoService>();
-            // register all repositories
+            //// TODO: Register your types here
+            //container.RegisterType<IProjectDbContext, ProjectDbContext>(new HierarchicalLifetimeManager());
+            //container.RegisterType(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+            ////register all repositories
             ////container
             ////   .ConfigureAutoRegistration()
             ////   .LoadAssemblyFrom(Assembly.GetExecutingAssembly().Location)
@@ -66,33 +69,35 @@ namespace SibersTestProject.App_Start
             ////   .Include((type) => type.Implements<IService>() && type.IsClass && !type.IsAbstract && !type.IsGenericType, Then.Register().UsingLifetime<HierarchicalLifetimeManager>().As<IService>().WithName(t => t.FullName))
             ////   .ApplyAutoRegistration();
 
-            ////// register Unit of Work
-            ////container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager(), new InjectionFactory(c => {
-            ////    var uow = new UnitOfWork(c.Resolve<IMercuryDbContext>());
+            //// register Unit of Work
+            //container.RegisterType<IUnitOfWork, UnitOfWork>( new InjectionFactory(c =>
+            //{
+            //    var uow = new UnitOfWork(c.Resolve<IProjectDbContext>());
 
-            ////    c.Registrations
-            ////    .Where(item => item.RegisteredType == typeof(ICustomRepository) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
-            ////    .ForEach(item => c.Resolve<ICustomRepository>(item.Name, new ResolverOverride[] {
-            ////        new ParameterOverride("unitOfWork", uow)
-            ////    }));
+            //    c.Registrations
+            //    .Where(item => item.RegisteredType == typeof(IEntityRepository) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
+            //    .ForEach(item => c.Resolve<IEntityRepository>(item.Name, new ResolverOverride[] {
+            //        new ParameterOverride("unitOfWork", uow)
+            //    }));
 
-            ////    return uow;
-            ////}));
+            //    return uow;
+            //}));
+            //container.RegisterType<IPhotoService, PhotoService>();
+            ////register services host
+            //container.RegisterType<IServicesHost, ServicesHost>( new InjectionFactory(c =>
+            //{
+            //    var host = new ServicesHost();
+            //    var uow = c.Resolve<IUnitOfWork>();
 
-            ////// register services host
-            ////container.RegisterType<IServicesHost, ServicesHost>(new HierarchicalLifetimeManager(), new InjectionFactory(c => {
-            ////    var host = new ServicesHost();
-            ////    var uow = c.Resolve<IUnitOfWork>();
+            //    c.Registrations
+            //    .Where(item => item.RegisteredType == typeof(IService) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
+            //    .ForEach(item => c.Resolve<IService>(item.Name, new ResolverOverride[] {
+            //        new ParameterOverride("servicesHost", host),
+            //        new ParameterOverride("unitOfWork", uow)
+            //    }));
 
-            ////    c.Registrations
-            ////    .Where(item => item.RegisteredType == typeof(IService) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
-            ////    .ForEach(item => c.Resolve<IService>(item.Name, new ResolverOverride[] {
-            ////        new ParameterOverride("servicesHost", host),
-            ////        new ParameterOverride("unitOfWork", uow)
-            ////    }));
-
-            ////    return host;
-            ////}));
+            //    return host;
+            //}));
         }
     }
 }

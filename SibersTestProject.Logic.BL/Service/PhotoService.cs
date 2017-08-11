@@ -67,5 +67,9 @@ namespace SibersTestProject.Logic.BL.Service
         {
 
         }
+        public string HelloWorld(string Hello)
+        {
+            return Hello + "World";
+        }
     }
 }
