@@ -16,6 +16,7 @@ using SibersTestProject.Logic.Contracts.Service.Base;
 using Microsoft.Practices.ObjectBuilder2;
 using SibersTestProject.Data.Contracts.Repositories;
 using SibersTestProject.Data.DAL.Repositories;
+using SibersTestProject.Logic.BL.Service.Base;
 
 namespace SibersTestProject.App_Start
 {
@@ -51,53 +52,27 @@ namespace SibersTestProject.App_Start
             //// container.LoadConfiguration();
 
             //// TODO: Register your types here
-            //container.RegisterType<IProjectDbContext, ProjectDbContext>(new HierarchicalLifetimeManager());
-            //container.RegisterType(typeof(IEntityRepository<>), typeof(EntityRepository<>));
-            ////register all repositories
-            ////container
-            ////   .ConfigureAutoRegistration()
-            ////   .LoadAssemblyFrom(Assembly.GetExecutingAssembly().Location)
-            ////   .ExcludeAssemblies(a => !a.FullName.ToLowerInvariant().StartsWith("mercury.data"))
-            ////   .Include((type) => type.Implements<ICustomRepository>() && type.IsClass && !type.IsAbstract && !type.IsGenericType, Then.Register().UsingLifetime<HierarchicalLifetimeManager>().As<ICustomRepository>().WithName(t => t.FullName))
-            ////   .ApplyAutoRegistration();
+            container.RegisterType<IProjectDbContext, ProjectDbContext>();
+            //container.RegisterType(typeof(IEntityRepository<>), typeof(EntityRepository<>), new HierarchicalLifetimeManager());
+            container.RegisterType<IService, PhotoService>("SibersTestProject.Logic.BL.Service.PhotoService", new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
+            //container.RegisterType<IServicesHost, ServicesHost>(new HierarchicalLifetimeManager());
+            // register services host
+            container.RegisterType<IServicesHost, ServicesHost>(new HierarchicalLifetimeManager(), new InjectionFactory(c => {
+                var host = new ServicesHost();
+                var uow = c.Resolve<IUnitOfWork>();
 
-            ////// register all services
-            ////container
-            ////   .ConfigureAutoRegistration()
-            ////   .LoadAssemblyFrom(Assembly.GetExecutingAssembly().Location)
-            ////   .ExcludeAssemblies(a => !a.FullName.ToLowerInvariant().StartsWith("mercury.logic"))
-            ////   .Include((type) => type.Implements<IService>() && type.IsClass && !type.IsAbstract && !type.IsGenericType, Then.Register().UsingLifetime<HierarchicalLifetimeManager>().As<IService>().WithName(t => t.FullName))
-            ////   .ApplyAutoRegistration();
+                c.Registrations
+                .Where(item => item.RegisteredType == typeof(IService) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
+                .ForEach(item => c.Resolve<IService>(item.Name, new ResolverOverride[] {
+                    new ParameterOverride("servicesHost", host),
+                    new ParameterOverride("unitOfWork", uow)
+                }));
 
-            //// register Unit of Work
-            //container.RegisterType<IUnitOfWork, UnitOfWork>( new InjectionFactory(c =>
-            //{
-            //    var uow = new UnitOfWork(c.Resolve<IProjectDbContext>());
+                return host;
+            }));
 
-            //    c.Registrations
-            //    .Where(item => item.RegisteredType == typeof(IEntityRepository) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
-            //    .ForEach(item => c.Resolve<IEntityRepository>(item.Name, new ResolverOverride[] {
-            //        new ParameterOverride("unitOfWork", uow)
-            //    }));
 
-            //    return uow;
-            //}));
-            //container.RegisterType<IPhotoService, PhotoService>();
-            ////register services host
-            //container.RegisterType<IServicesHost, ServicesHost>( new InjectionFactory(c =>
-            //{
-            //    var host = new ServicesHost();
-            //    var uow = c.Resolve<IUnitOfWork>();
-
-            //    c.Registrations
-            //    .Where(item => item.RegisteredType == typeof(IService) && !item.MappedToType.IsInterface && !item.MappedToType.IsGenericType && !item.MappedToType.IsAbstract && !String.IsNullOrEmpty(item.Name))
-            //    .ForEach(item => c.Resolve<IService>(item.Name, new ResolverOverride[] {
-            //        new ParameterOverride("servicesHost", host),
-            //        new ParameterOverride("unitOfWork", uow)
-            //    }));
-
-            //    return host;
-            //}));
         }
     }
 }

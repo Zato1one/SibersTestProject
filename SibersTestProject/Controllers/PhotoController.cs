@@ -21,11 +21,6 @@ namespace SibersTestProject.Controllers
             var photoList = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userName);
             return View(photoList);
         }
-        public ActionResult Index2()
-        {
-            var photoList = ServicesHost.GetService<IPhotoService>().HelloWorld("Hello");
-            return View(photoList);
-        }
         public ActionResult Upload()
         {
             return View();

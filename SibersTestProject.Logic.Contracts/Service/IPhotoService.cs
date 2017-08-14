@@ -11,6 +11,5 @@ namespace SibersTestProject.Logic.Contracts.Service
     public interface IPhotoService : ICrudService<PhotoModel>
     {
         ICollection<PhotoModel> GetAllUserPhoto(string userName);
-        string HelloWorld(string Hello);
     }
 }

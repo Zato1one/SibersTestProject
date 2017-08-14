@@ -49,15 +49,5 @@ namespace SibersTestProject.Data.DAL
             }
             catch { }
         }
-
-        private bool disposed = false;
-        public void Dispose()
-        {
-            if(!disposed)
-            {
-                Context.Dispose();
-                disposed = true;
-            }
-        }
     }
 }

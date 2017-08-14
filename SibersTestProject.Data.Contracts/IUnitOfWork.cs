@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SibersTestProject.Data.Contracts
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         IProjectDbContext Context { get; }
         IEntityRepository<T> GetRepository<T>();
