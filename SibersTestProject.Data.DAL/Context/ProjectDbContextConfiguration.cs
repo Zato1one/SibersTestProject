@@ -9,7 +9,7 @@ using System.Data.Entity.Migrations;
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseAlways<ProjectDbContext>
+    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseIfModelChanges<ProjectDbContext>
     {
         //public ProjectDbContextConfiguration()
         //{
@@ -51,12 +51,10 @@ namespace SibersTestProject.Data.DAL.Context
             }
 
             // Add SuperAdmin to role if not already added
+            var adminRole = "SuperAdmin";
             var rolesForUser = userManager.GetRoles(admin.Id);
-            foreach (var roleName in roles)
-            {
-                if (!rolesForUser.Contains(roleName))
-                    userManager.AddToRole(admin.Id, roleName);
-            }
+                if (!rolesForUser.Contains(adminRole))
+                    userManager.AddToRole(admin.Id, adminRole);
 
             base.Seed(context);
         }

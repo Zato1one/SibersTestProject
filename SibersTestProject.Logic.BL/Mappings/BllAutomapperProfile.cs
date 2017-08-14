@@ -16,8 +16,10 @@ namespace SibersTestProject.Logic.BL.Mappings
         {
             //CreateMap<Foo, FooDto>();
             // Use CreateMap... Etc.. here (Profile methods are the same as configuration methods)
-            CreateMap<Gallery, GalleryModel>().IgnoreAllUnmapped().ReverseMap().IgnoreAllUnmapped();
-            CreateMap<Photo, PhotoModel>().IgnoreAllUnmapped().ReverseMap().IgnoreAllUnmapped();
+            //CreateMap<Gallery, GalleryModel>().IgnoreAllUnmapped().ReverseMap().IgnoreAllUnmapped();
+            //CreateMap<Photo, PhotoModel>().IgnoreAllUnmapped();//.ReverseMap().IgnoreAllUnmapped();
+            CreateMap<PhotoModel, Photo>(MemberList.Source);//.ReverseMap().IgnoreAllUnmapped();
+            CreateMap<Photo, PhotoModel>(MemberList.Source);
         }
     }
 }

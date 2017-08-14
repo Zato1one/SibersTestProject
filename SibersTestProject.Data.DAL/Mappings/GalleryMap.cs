@@ -16,7 +16,11 @@ namespace SibersTestProject.Data.DAL.Mappings
             this.ToTable("Gallery");
             this.HasMany(a => a.Photos)
                 .WithMany(b => b.Galleries);
-            
+
+            this.HasRequired(entity => entity.User)
+                .WithMany(studio => studio.Galleries)
+                .HasForeignKey(entity => entity.UserId);
+
         }
     }
 }

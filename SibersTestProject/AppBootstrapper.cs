@@ -17,7 +17,7 @@ namespace SibersTestProject
 
             });
 
-            Mapper.Configuration.AssertConfigurationIsValid();
+           // Mapper.Configuration.AssertConfigurationIsValid();
         }
     }
 }

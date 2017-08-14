@@ -9,11 +9,11 @@ namespace SibersTestProject.Data.DAL.Mappings
         public UserMap()
             : base()
         {
-            this.HasMany(a => a.Photos)
-                .WithRequired(b => b.User);
+            //this.HasMany(a => a.Photos)
+            //    .WithRequired(b => b.User);
 
-            this.HasMany(a => a.Galleries)
-                .WithRequired(b => b.User);
+            //this.HasMany(a => a.Galleries)
+            //    .WithRequired(b => b.User);
         }
     }
 }

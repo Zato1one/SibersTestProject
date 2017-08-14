@@ -9,6 +9,9 @@ namespace SibersTestProject.Data.DAL.Mappings
             : base()
         {
             this.ToTable("Photo");
+            this.HasRequired(entity => entity.User)
+                .WithMany(studio => studio.Photos)
+                .HasForeignKey(entity => entity.UserId);
         }
     }
 }

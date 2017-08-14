@@ -1,0 +1,9 @@
+﻿.previewImage {
+    position: relative;
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

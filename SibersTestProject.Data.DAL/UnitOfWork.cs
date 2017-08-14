@@ -40,14 +40,14 @@ namespace SibersTestProject.Data.DAL
 
         public void SaveChanges()
         {
-            try
-            {
+            //try
+            //{
                 lock (lockObject)
                 {
                     this.Context.DbContext.SaveChanges();
                 }
-            }
-            catch { }
+            //}
+            //catch { }
         }
     }
 }

@@ -2,6 +2,7 @@
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.Contracts;
 using SibersTestProject.Data.DAL.Entities;
+using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Logic.BL.Service.Base;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
@@ -45,27 +46,18 @@ namespace SibersTestProject.Logic.BL.Service
             throw new NotImplementedException();
         }
 
-        public void UploadPhoto(string userName, PhotoModel photoModel)
+        public void UploadPhoto(PhotoModel photoModel)
         {
-            var dbPhoto = new Photo()
-            {
-                Image = photoModel.Image,
-                Name = photoModel.Name,
-                Description = photoModel.Description
-            };
+            var dbPhoto = Mapper.Map<Photo>(photoModel);
             UnitOfWork.GetRepository<Photo>().Insert(dbPhoto);
             UnitOfWork.SaveChanges();
         }
-        public ICollection<PhotoModel> GetAllUserPhoto(string userName)
+        public ICollection<PhotoModel> GetAllUserPhoto(Guid userId)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>()
-                .SearchFor(a => !a.IsArchive && a.User.UserName == userName).ToList();
+                 .SearchFor(a => !a.IsArchive && a.User.Id == userId).ToList();
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
-        }
-        public void UploadPhoto(PhotoModel photo)
-        {
-
         }
     }
 }

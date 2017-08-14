@@ -1,7 +1,17 @@
-﻿
+﻿@model SibersTestProject.Common.Model.PhotoModel
 @{
     ViewBag.Title = "Upload";
 }
-
 <h2>Upload</h2>
+<h3>@ViewBag.StateUpload</h3>
+@using (Html.BeginForm("Upload", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m => m.Name)
+    @Html.EditorFor(m => m.Name)
 
+    @Html.LabelFor(m => m.Description)
+    @Html.EditorFor(m => m.Description)
+
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}

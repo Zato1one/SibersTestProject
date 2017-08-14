@@ -34,6 +34,10 @@
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AutomapperExtension.cs" />
+    <Compile Include="Extensions\IdentityExtension.cs" />
     <Compile Include="Model\Base\BaseModel.cs" />
     <Compile Include="Model\GalleryModel.cs" />
     <Compile Include="Model\PhotoModel.cs" />
+    <Compile Include="Model\PhotoModelWithoutImage.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
