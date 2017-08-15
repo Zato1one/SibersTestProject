@@ -8,7 +8,8 @@ namespace SibersTestProject.Data.DAL.Mappings
         public PhotoMap()
             : base()
         {
-            this.ToTable("Photo");
+            this.ToTable("Photos");
+
             this.HasRequired(entity => entity.User)
                 .WithMany(studio => studio.Photos)
                 .HasForeignKey(entity => entity.UserId);

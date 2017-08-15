@@ -14,7 +14,7 @@ namespace SibersTestProject.Controllers
         public HomeController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
-        // GET: Home
+
         [Authorize]
         public ActionResult Index()
         {

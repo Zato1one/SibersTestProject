@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Logic.Contracts;
-using SibersTestProject.Model;
+using SibersTestProject.Logic.Contracts.Service;
+using SibersTestProject.Model.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,50 +21,32 @@ namespace SibersTestProject.Controllers
         public AccountController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
+
         public ActionResult Register()
         {
-            var registerModel = new RegisterView();
-            return View(registerModel);
+            var registerView = new RegisterView();
+            return View(registerView);
         }
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterView model)
+        public async Task<ActionResult> Register(RegisterView registerView)
         {
             if (ModelState.IsValid)
             {
-                var user = new ProjectUser()
+                var userModel = Mapper.Map<UserModel>(registerView);
+                var resultRegistration = await ServicesHost.GetService<IAccountService>().RegisterUser(userModel);
+                if (resultRegistration.Succeeded)
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName
-                };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(user.Id, "User");
-                    var ident = await UserManager.CreateIdentityAsync(user,
-                      DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = false
-                    }, ident);
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (string error in result.Errors)
+                    foreach (var error in resultRegistration.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
                 }
             }
-            return View(model);
+            return View(registerView);
         }
 
         public ActionResult Login(string returnUrl)
@@ -71,7 +55,6 @@ namespace SibersTestProject.Controllers
             ViewBag.returnUrl = returnUrl;
             return View(login);
         }
-
         [HttpPost]
         public async Task<ActionResult> Login(LoginView model, string returnUrl)
         {
@@ -107,6 +90,10 @@ namespace SibersTestProject.Controllers
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+        private async Task SignIn(UserModel userModel)
+        {
+
         }
 
     }

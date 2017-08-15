@@ -13,7 +13,8 @@ namespace SibersTestProject.Data.DAL.Mappings
         public GalleryMap()
             : base()
         {
-            this.ToTable("Gallery");
+            this.ToTable("Galleries");
+
             this.HasMany(a => a.Photos)
                 .WithMany(b => b.Galleries);
 

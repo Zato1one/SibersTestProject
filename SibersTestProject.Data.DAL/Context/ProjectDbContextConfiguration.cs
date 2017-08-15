@@ -9,7 +9,7 @@ using System.Data.Entity.Migrations;
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseIfModelChanges<ProjectDbContext>
+    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseAlways<ProjectDbContext>
     {
         //public ProjectDbContextConfiguration()
         //{

@@ -9,10 +9,8 @@ using System.Web;
 
 namespace SibersTestProject.Logic.Contracts.Service
 {
-    public interface IPhotoService : ICrudService<PhotoModel>
+    public interface IAccountService : IService
     {
-        ICollection<PhotoModel> GetAllUserPhoto(Guid userId);
-        void UploadPhoto(PhotoModel photoModel);
-        byte[] FileBaseToImage(HttpPostedFileBase file);
+        Task<IdentityResultModel> RegisterUser(UserModel userModel);
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SibersTestProject.Model
+namespace SibersTestProject.Model.Account
 {
     public class RegisterView
     {

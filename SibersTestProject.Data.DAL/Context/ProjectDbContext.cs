@@ -37,7 +37,6 @@ namespace SibersTestProject.Data.DAL.Context
             // Configurations
             modelBuilder.Configurations.Add(new PhotoMap());
             modelBuilder.Configurations.Add(new GalleryMap());
-            modelBuilder.Configurations.Add(new UserMap());
 
             // Conventions
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

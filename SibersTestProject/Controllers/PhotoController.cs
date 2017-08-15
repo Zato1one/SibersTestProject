@@ -27,36 +27,37 @@ namespace SibersTestProject.Controllers
         }
         public ActionResult Upload()
         {
-
             return View();
         }
         [HttpPost]
         public ActionResult Upload([Bind(Include = "Name,Description")]PhotoModel photo, HttpPostedFileBase file)
         {
-            //try
-            //{
-            if (file != null && file.ContentLength > 0 && ModelState.IsValid)
+            try
             {
-                using (var binaryReader = new BinaryReader(file.InputStream))
+                if (ModelState.IsValid)
                 {
-                    photo.Image = binaryReader.ReadBytes(file.ContentLength);
+                    photo.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
+                    photo.UserId = User.Identity.GetUserId();
+                    ServicesHost.GetService<IPhotoService>().UploadPhoto(photo);
+                    ViewBag.StateUpload = "Success upload";
                 }
-                photo.UserId = User.Identity.GetUserId(); 
-                var userName = User.Identity.Name;
-                ServicesHost.GetService<IPhotoService>().UploadPhoto(photo);
-                ViewBag.StateUpload = "Success upload";
+                return View();
             }
-            else
+            catch (NullReferenceException)
             {
-                ViewBag.StateUpload = "file != null && file.ContentLength > 0 && ModelState.IsValid";
+                ViewBag.StateUpload = "ImageNotSelected";
+                return View();
             }
-            return View();
-            //}
-            //catch
-            //{
-            //    ViewBag.StateUpload = "Exception";
-            //    return View();
-            //}
+            catch (ExteptionTypeNotImage)
+            {
+                ViewBag.StateUpload = "FileTypeIsNotImage";
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.StateUpload = e.Message;
+                return View();
+            }
         }
     }
 }

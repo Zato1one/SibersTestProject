@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SibersTestProject.Logic.BL.Mappings;
+using SibersTestProject.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace SibersTestProject
 
             Mapper.Initialize(config => {
                 config.AddProfile<BllAutomapperProfile>();
+                config.AddProfile<WebAutomapperProfile>();
 
             });
 

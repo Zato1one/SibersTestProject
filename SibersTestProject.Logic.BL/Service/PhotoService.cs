@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SibersTestProject.Common.Extensions;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.Contracts;
 using SibersTestProject.Data.DAL.Entities;
@@ -8,17 +9,18 @@ using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SibersTestProject.Logic.BL.Service
 {
     public class PhotoService : HostService<IPhotoService>, IPhotoService
     {
-
         public PhotoService(IServicesHost servicesHost, IUnitOfWork unitOfWork)
-            : base(servicesHost, unitOfWork) {         
+            : base(servicesHost, unitOfWork) {
         }
 
         public void Delete(Guid modelId)
@@ -59,5 +61,33 @@ namespace SibersTestProject.Logic.BL.Service
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
         }
+        public byte[] FileBaseToImage(HttpPostedFileBase file)
+        {
+            byte[] image;
+            if (!isImageType(file)) throw new ExteptionTypeNotImage();
+            using (var binaryReader = new BinaryReader(file.InputStream))
+            {
+                image = binaryReader.ReadBytes(file.ContentLength);
+                return image;
+            }
+        }
+
+        #region Private Method
+        private bool isImageType(HttpPostedFileBase file)
+        {
+            var ImageMinimumBytes = 512;
+            var contentType = file.ContentType.ToLower();
+            var contentLength = file.ContentLength;
+            if (contentLength < ImageMinimumBytes) return false;
+            if (contentType != "image/jpg" &&
+                contentType != "image/jpeg" &&
+                contentType != "image/pjpeg" &&
+                contentType != "image/gif" &&
+                contentType != "image/x-png" &&
+                contentType != "image/png") return false;
+            return true;
+        }
+        #endregion Private Method
+
     }
 }

@@ -55,6 +55,7 @@ namespace SibersTestProject.App_Start
             container.RegisterType<IProjectDbContext, ProjectDbContext>();
             //container.RegisterType(typeof(IEntityRepository<>), typeof(EntityRepository<>), new HierarchicalLifetimeManager());
             container.RegisterType<IService, PhotoService>("SibersTestProject.Logic.BL.Service.PhotoService", new HierarchicalLifetimeManager());
+            container.RegisterType<IService, AccountService>("SibersTestProject.Logic.BL.Service.AccountService", new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             //container.RegisterType<IServicesHost, ServicesHost>(new HierarchicalLifetimeManager());
             // register services host
