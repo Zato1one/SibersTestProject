@@ -19,8 +19,9 @@ namespace SibersTestProject.Logic.BL.Mappings
         {
             CreateMap<PhotoModel, Photo>(MemberList.Source);
             CreateMap<Photo, PhotoModel>(MemberList.Source);
-            CreateMap<UserModel, ProjectUser>(MemberList.Source);
-            CreateMap<IdentityResult, IdentityResultModel>(MemberList.Source);
+            CreateMap<Gallery, GalleryModel>(MemberList.Source);
+            CreateMap<GalleryModel, Gallery>(MemberList.Source);
+
         }
     }
 }

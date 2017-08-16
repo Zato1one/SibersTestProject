@@ -49,12 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\RoleName.cs" />
     <Compile Include="Extensions\AutomapperExtension.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\IdentityExtension.cs" />
     <Compile Include="Model\Base\BaseModel.cs" />
     <Compile Include="Model\GalleryModel.cs" />
-    <Compile Include="Model\IdentityResultModel.cs" />
     <Compile Include="Model\PhotoModel.cs" />
     <Compile Include="Model\PhotoModelWithoutImage.cs" />
     <Compile Include="Model\UserModel.cs" />

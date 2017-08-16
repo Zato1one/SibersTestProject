@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
+using SibersTestProject.Common.Enums;
 using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Data.DAL.Identity.Store;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-
+using System.Linq;
+using System.Reflection;
 
 namespace SibersTestProject.Data.DAL.Context
 {
@@ -22,11 +24,12 @@ namespace SibersTestProject.Data.DAL.Context
             var userManager = new UserManager<ProjectUser, Guid>(new ProjectUserStore(context));
             var roleManager = new RoleManager<ProjectRole, Guid>(new ProjectRoleStore(context));
 
-            //system role list
-            var roles = new List<string>() { "SuperAdmin", "UserAdmin", "User" };
+            // system roles list
+            var roles = typeof(RoleName).GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
 
-            //Create system role if notExist
+            // generate all system roles
             roles.ForEach(roleName => {
+                //Create Role if it does not exist
                 if (!roleManager.RoleExists(roleName))
                 {
                     roleManager.Create(new ProjectRole(roleName));
@@ -51,7 +54,7 @@ namespace SibersTestProject.Data.DAL.Context
             }
 
             // Add SuperAdmin to role if not already added
-            var adminRole = "SuperAdmin";
+            var adminRole = RoleName.SuperAdmin;
             var rolesForUser = userManager.GetRoles(admin.Id);
                 if (!rolesForUser.Contains(adminRole))
                     userManager.AddToRole(admin.Id, adminRole);

@@ -25,6 +25,7 @@ namespace SibersTestProject.Controllers
             var photoList = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
             return View(photoList);
         }
+
         public ActionResult Upload()
         {
             return View();

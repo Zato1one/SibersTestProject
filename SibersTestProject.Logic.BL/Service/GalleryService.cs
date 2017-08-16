@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Data.Contracts;
+using SibersTestProject.Data.DAL.Entities;
+using AutoMapper;
 
 namespace SibersTestProject.Logic.BL.Service
 {
@@ -39,6 +41,23 @@ namespace SibersTestProject.Logic.BL.Service
         public void Save(GalleryModel model)
         {
             throw new NotImplementedException();
+        }
+        public void CreateGallery(GalleryModel galleryModel)
+        {
+
+        }
+        public ICollection<GalleryModel> GetAllGalleryByUserId(Guid userId)
+        {
+            var dbGallery = UnitOfWork.GetRepository<Gallery>()
+                 .SearchFor(a => a.User.Id == userId).ToList();
+
+            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModel>>(dbGallery);
+        }
+        public void Create(GalleryModel galleryModel)
+        {
+            var dbGallery = Mapper.Map<Gallery>(galleryModel);
+            UnitOfWork.GetRepository<Gallery>().Insert(dbGallery);
+            UnitOfWork.SaveChanges();
         }
     }
 }

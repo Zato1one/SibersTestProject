@@ -11,8 +11,6 @@ namespace SibersTestProject.Common.Model
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<PhotoModel> Photos { get; set; }
-        public virtual UserModel User { get; set; }
-        public Guid User_Id { get; set; }
+        public Guid UserId { get; set; }
     }
 }

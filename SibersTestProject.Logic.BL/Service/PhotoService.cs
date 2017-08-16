@@ -57,7 +57,7 @@ namespace SibersTestProject.Logic.BL.Service
         public ICollection<PhotoModel> GetAllUserPhoto(Guid userId)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>()
-                 .SearchFor(a => !a.IsArchive && a.User.Id == userId).ToList();
+                 .SearchFor(a => a.User.Id == userId).ToList();
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
         }

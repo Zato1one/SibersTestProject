@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using SibersTestProject.Common.Enums;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Logic.Contracts;
@@ -32,15 +33,17 @@ namespace SibersTestProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userModel = Mapper.Map<UserModel>(registerView);
-                var resultRegistration = await ServicesHost.GetService<IAccountService>().RegisterUser(userModel);
-                if (resultRegistration.Succeeded)
+                var dbUser = Mapper.Map<ProjectUser>(registerView);
+                var identityResult = await UserManager.CreateAsync(dbUser, registerView.Password);                
+                if (identityResult.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(dbUser.Id, RoleName.User);
+                    await SignIn(dbUser);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in resultRegistration.Errors)
+                    foreach (var error in identityResult.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -67,14 +70,7 @@ namespace SibersTestProject.Controllers
                 }
                 else
                 {
-                    var ident = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
-
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = false
-                    }, ident);
+                    await SignIn(user);
                     if (returnUrl == null)
                     {
                         return RedirectToAction("Index", "Home");
@@ -82,7 +78,6 @@ namespace SibersTestProject.Controllers
                     return Redirect(returnUrl);
                 }
             }
-
             return View(model);
         }
 
@@ -91,9 +86,11 @@ namespace SibersTestProject.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-        private async Task SignIn(UserModel userModel)
-        {
 
+        private async Task SignIn(ProjectUser dbUser)
+        {
+            var ident = await UserManager.CreateIdentityAsync(dbUser, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(ident);
         }
 
     }
