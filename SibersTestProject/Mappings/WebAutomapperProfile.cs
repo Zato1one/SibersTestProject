@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SibersTestProject.Data.DAL.Identity.Entities;
+using SibersTestProject.Model;
 
 namespace SibersTestProject.Mappings
 {
@@ -14,6 +15,8 @@ namespace SibersTestProject.Mappings
         public WebAutomapperProfile()
         {
             CreateMap<RegisterView, ProjectUser>(MemberList.Source);
+            CreateMap<PhotoModel, PhotoView>(MemberList.Source);
+            CreateMap<PhotoView, PhotoModel>(MemberList.Source);
         }
     }
 }

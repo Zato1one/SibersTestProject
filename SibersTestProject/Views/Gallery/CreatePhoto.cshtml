@@ -1,0 +1,38 @@
+﻿@model SibersTestProject.Model.GalleryView
+@{
+    ViewBag.Title = "PhotoList";
+}
+<h2>PhotoList</h2>
+@using (Html.BeginForm("CreatePhoto", "Gallery", FormMethod.Post))
+{
+<table class="table">
+    <tr>
+        <th>
+           
+        </th>
+        <th>
+            
+        </th>
+        <th>
+            
+        </th>
+    </tr>
+    @foreach (var item in Model.Photos)
+    {
+        <tr>
+            @{
+                var base64 = Convert.ToBase64String(item.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <td><div class="previewImage" style="background-image: url(@imgSrc)"></div></td>
+            }
+            <td>
+                @Html.LabelFor(a => item.Name)
+            </td>
+            <td>
+                @Html.EditorFor(a=>item.Check)
+            </td>
+        </tr>
+     }
+</table>
+<input type="submit" value="Upload" />
+}

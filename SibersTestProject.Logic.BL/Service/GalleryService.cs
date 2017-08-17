@@ -35,12 +35,27 @@ namespace SibersTestProject.Logic.BL.Service
 
         public GalleryModel GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.EntityId == id).First();
+            return Mapper.Map<GalleryModel>(dbGallery);
+
         }
 
         public void Save(GalleryModel model)
         {
-            throw new NotImplementedException();
+            var store = UnitOfWork.GetRepository<Gallery>().GetById(model.EntityId);
+
+            if (store == null)
+            {
+                store = Mapper.Map<Gallery>(model);
+                UnitOfWork.GetRepository<Gallery>().Insert(store);
+            }
+            else
+            {
+                Mapper.Map(model, store);
+                UnitOfWork.GetRepository<Gallery>().Update(store);
+            }
+
+            UnitOfWork.SaveChanges();
         }
         public void CreateGallery(GalleryModel galleryModel)
         {
