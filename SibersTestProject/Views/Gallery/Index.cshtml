@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SibersTestProject.Common.Model.GalleryModel>
+﻿@model IEnumerable<SibersTestProject.Model.Gallery.GalleryIndex>
 @{
     ViewBag.Title = "GalleryList";
 }
@@ -24,7 +24,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Create photo", "CreatePhoto", new { id = item.EntityId})
+                @Html.ActionLink("Create photos", "CreatePhoto", new { id = item.EntityId }) |
+                @Html.ActionLink("Open gallery", "ViewGallery", new { id = item.EntityId })
             </td>
         </tr>
     }

@@ -17,9 +17,19 @@ namespace SibersTestProject.Logic.BL.Mappings
     {
         public BllAutomapperProfile()
         {
+            //convert BLL DAL
+
+            //Photo
             CreateMap<PhotoModel, Photo>(MemberList.Source);
             CreateMap<Photo, PhotoModel>(MemberList.Source);
+
+            //Gallery
+            CreateMap<Gallery, GalleryModelWithoutImage>(MemberList.Source);
+            CreateMap<GalleryModelWithoutImage, Gallery>(MemberList.Source);
             CreateMap<Gallery, GalleryModel>(MemberList.Source);
+
+
+
             CreateMap<GalleryModel, Gallery>(MemberList.Source);
 
         }

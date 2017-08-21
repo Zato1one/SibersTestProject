@@ -54,8 +54,8 @@
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\IdentityExtension.cs" />
     <Compile Include="Model\Base\BaseModel.cs" />
-    <Compile Include="Model\GalleryModel2.cs" />
     <Compile Include="Model\GalleryModel.cs" />
+    <Compile Include="Model\GalleryModelWithoutImage.cs" />
     <Compile Include="Model\PhotoModel.cs" />
     <Compile Include="Model\PhotoModelWithoutImage.cs" />
     <Compile Include="Model\UserModel.cs" />

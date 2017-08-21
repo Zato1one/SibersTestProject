@@ -7,8 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//using Microsoft.AspNet.Identity;
 using SibersTestProject.Common.Extensions;
+using AutoMapper;
+using SibersTestProject.Model.Photo;
 
 namespace SibersTestProject.Controllers
 {
@@ -22,8 +23,10 @@ namespace SibersTestProject.Controllers
         public ActionResult Index()
         {
             var userId = AuthenticationManager.User.Identity.GetUserId();
-            var photoList = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
-            return View(photoList);
+            var photoModelList = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
+            var photoViewList = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoView>>(photoModelList);
+
+            return View(photoViewList);
         }
 
         public ActionResult Upload()
@@ -31,15 +34,16 @@ namespace SibersTestProject.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Upload([Bind(Include = "Name,Description")]PhotoModel photo, HttpPostedFileBase file)
+        public ActionResult Upload(PhotoView photoView, HttpPostedFileBase file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    photo.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
-                    photo.UserId = User.Identity.GetUserId();
-                    ServicesHost.GetService<IPhotoService>().UploadPhoto(photo);
+                    photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
+                    photoView.UserId = User.Identity.GetUserId();
+                    var photoModel = Mapper.Map<PhotoModel>(photoView);
+                    ServicesHost.GetService<IPhotoService>().UploadPhoto(photoModel);
                     ViewBag.StateUpload = "Success upload";
                 }
                 return View();

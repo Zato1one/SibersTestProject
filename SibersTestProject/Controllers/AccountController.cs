@@ -33,12 +33,12 @@ namespace SibersTestProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dbUser = Mapper.Map<ProjectUser>(registerView);
-                var identityResult = await UserManager.CreateAsync(dbUser, registerView.Password);                
+                var userModel = Mapper.Map<ProjectUser>(registerView);
+                var identityResult = await UserManager.CreateAsync(userModel, registerView.Password);                
                 if (identityResult.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(dbUser.Id, RoleName.User);
-                    await SignIn(dbUser);
+                    await UserManager.AddToRoleAsync(userModel.Id, RoleName.User);
+                    await SignIn(userModel);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -87,9 +87,9 @@ namespace SibersTestProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task SignIn(ProjectUser dbUser)
+        private async Task SignIn(ProjectUser userModel)
         {
-            var ident = await UserManager.CreateIdentityAsync(dbUser, DefaultAuthenticationTypes.ApplicationCookie);
+            var ident = await UserManager.CreateIdentityAsync(userModel, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(ident);
         }
 

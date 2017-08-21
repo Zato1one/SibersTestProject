@@ -61,14 +61,20 @@ namespace SibersTestProject.Logic.BL.Service
         {
 
         }
-        public ICollection<GalleryModel> GetAllGalleryByUserId(Guid userId)
+        public ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId)
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>()
                  .SearchFor(a => a.User.Id == userId).ToList();
 
-            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModel>>(dbGallery);
+            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
         }
-        public void Create(GalleryModel galleryModel)
+        public GalleryModel GetGalleryById(Guid galleryId)
+        {
+            var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
+
+            return Mapper.Map<GalleryModel>(dbGallery);
+        }
+        public void Create(GalleryModelWithoutImage galleryModel)
         {
             var dbGallery = Mapper.Map<Gallery>(galleryModel);
             UnitOfWork.GetRepository<Gallery>().Insert(dbGallery);

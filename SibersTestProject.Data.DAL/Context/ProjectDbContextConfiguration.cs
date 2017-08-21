@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseAlways<ProjectDbContext>
+    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseIfModelChanges<ProjectDbContext>
     {
         //public ProjectDbContextConfiguration()
         //{

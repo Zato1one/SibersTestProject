@@ -5,9 +5,9 @@ using System.Web;
 
 namespace SibersTestProject.Model
 {
-    public class GalleryView
+    public class GalleryView2
     {
         public Guid galleryId { get; set; }
-        public ICollection<PhotoView> Photos { get; set; }
+        public ICollection<PhotoView2> Photos { get; set; }
     }
 }

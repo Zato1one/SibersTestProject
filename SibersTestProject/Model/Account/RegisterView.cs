@@ -10,28 +10,28 @@ namespace SibersTestProject.Model.Account
     {
         [Required]
         [MaxLength(50)]
-        [Display(Name = "Логин")]
+        [Display(Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        [Display(Name = "Имя")]
+        [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "LastName")]
         public string LastName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("Password", ErrorMessage = "Password is not required")]
         [DataType(DataType.Password)]
-        [Display(Name = "Подтвердите пароль")]
+        [Display(Name = "RepeatPassword")]
         public string PasswordConfirm { get; set; }
 
         [Required]

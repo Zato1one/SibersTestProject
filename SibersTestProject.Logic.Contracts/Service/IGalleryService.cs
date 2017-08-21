@@ -10,7 +10,8 @@ namespace SibersTestProject.Logic.Contracts.Service
 {
     public interface IGalleryService : ICrudService<GalleryModel>
     {
-        ICollection<GalleryModel> GetAllGalleryByUserId(Guid userId);
-        void Create(GalleryModel galleryModel);
+        ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId);
+        void Create(GalleryModelWithoutImage galleryModel);
+        GalleryModel GetGalleryById(Guid galleryId);
     }
 }

@@ -1,18 +1,17 @@
-﻿@model SibersTestProject.Common.Model.GalleryModel
+﻿@model SibersTestProject.Model.Gallery.GalleryView
 @{
     ViewBag.Title = "ViewGallery";
 }
 
-<h2>ViewGallery</h2>
-@Html.DisplayNameFor(model => model.Name)
+<h2>@Html.LabelFor(model => model.Name)</h2>
 <table class="table">
     <tr>
         <th>
+            Name
         </th>
         <th>
-        </th>
-        <th>
-        </th>
+            Photo
+        </th>        
     </tr>
     @foreach (var item in Model.Photos)
     {

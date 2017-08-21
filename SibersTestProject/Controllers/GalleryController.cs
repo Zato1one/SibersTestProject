@@ -4,6 +4,8 @@ using SibersTestProject.Common.Model;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
 using SibersTestProject.Model;
+using SibersTestProject.Model.Gallery;
+using SibersTestProject.Model.Photo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,33 +24,35 @@ namespace SibersTestProject.Controllers
         public ActionResult Index()
         {
             var userId = AuthenticationManager.User.Identity.GetUserId();
-            var galleryList = ServicesHost.GetService<IGalleryService>().GetAllGalleryByUserId(userId);
-            return View(galleryList);
+            var galleryModelList = ServicesHost.GetService<IGalleryService>().GetAllGalleryByUserId(userId);
+            var galleryViewList = Mapper.Map<ICollection<GalleryModelWithoutImage>, ICollection<GalleryIndex>>(galleryModelList);
+            return View(galleryViewList);
         }
         public ActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Create(GalleryModel galleryModel)
+        public ActionResult Create(GalleryCreate galleryView)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    galleryModel.UserId = User.Identity.GetUserId();
+                    galleryView.UserId = User.Identity.GetUserId();
+                    var galleryModel = Mapper.Map<GalleryModelWithoutImage>(galleryView);
                     ServicesHost.GetService<IGalleryService>().Create(galleryModel);
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(galleryModel);
+                    return View(galleryView);
                 }
             }
             catch(Exception e)
             {
                 ViewBag.StateCreate = e.Message;
-                return View(galleryModel);
+                return View(galleryView);
             }
         }
         public ActionResult CreatePhoto(Guid id)
@@ -57,34 +61,34 @@ namespace SibersTestProject.Controllers
             {
                 return HttpNotFound();
             }
-            var userId = AuthenticationManager.User.Identity.GetUserId();
-            var photoList = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
-            var galleryView = new GalleryView()
-            {
-                galleryId = id,
-                Photos = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoView>>(photoList)
-            };
+            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
+            var galleryView = Mapper.Map<GalleryCreatePhoto>(galleryModel);
+            var userId = User.Identity.GetUserId();
+            var allGalleryPhotos = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
+            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allGalleryPhotos);
             return View(galleryView);
         }
         [HttpPost]
-        public ActionResult CreatePhoto(GalleryView photoList)
+        public ActionResult CreatePhoto(GalleryCreatePhoto galleryView)
         {
-            //var photoViewList = photoList.Where(a => a.Check == true).ToList();
-            //var photoModel = Mapper.Map<ICollection<PhotoView>, ICollection<PhotoModel>>(photoViewList);
-            //var galleryModel = ServicesHost.GetService<IGalleryService>().GetById(PhotoView.Gallery);
-            //galleryModel.Photos = photoModel;
-            //ServicesHost.GetService<IGalleryService>().Save(galleryModel);
-            //RedirectToAction("ViewGallery", galleryModel);
+            var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).ToList();
+            var newPhotosModel = Mapper.Map<ICollection<PhotoCheck>, ICollection<PhotoView>>(newPhotos);
+            galleryView.Photos.Concat(newPhotosModel);
+            var galleryModel = Mapper.Map<GalleryModel>(galleryView);
+            ServicesHost.GetService<IGalleryService>().Save(galleryModel);
+            RedirectToAction("ViewGallery", galleryModel.EntityId);
             return View();
         }
-        public ActionResult ViewGallery(GalleryModel galleryModel)
+        public ActionResult ViewGallery(Guid id)
         {
-            if(galleryModel==null)
+            if(id == null)
             {
                 return HttpNotFound();
             }
+            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
+            var galleryView = Mapper.Map<GalleryView>(galleryModel);
 
-            return View(galleryModel);
+            return View(galleryView);
         }
     }
 }

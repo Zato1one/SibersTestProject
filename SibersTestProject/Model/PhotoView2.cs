@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SibersTestProject.Model
 {
-    public class PhotoView
+    public class PhotoView2
     {
         public Guid EntityId { get; set; }
         public string Name { get; set; }
