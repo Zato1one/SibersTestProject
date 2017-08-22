@@ -80,5 +80,15 @@ namespace SibersTestProject.Logic.BL.Service
             UnitOfWork.GetRepository<Gallery>().Insert(dbGallery);
             UnitOfWork.SaveChanges();
         }
+        public void CreatePhoto(Guid idGallery, ICollection<Guid> idPhotos)
+        {
+            var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
+            if (gallery == null) throw new NullReferenceException();
+            foreach (var idPhoto in idPhotos)
+            {
+                gallery.Photos.Add(UnitOfWork.GetRepository<Photo>().GetById(idPhoto));
+            }
+            UnitOfWork.GetRepository<Gallery>().Update(gallery);
+        }
     }
 }

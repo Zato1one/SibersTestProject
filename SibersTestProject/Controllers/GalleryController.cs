@@ -67,13 +67,18 @@ namespace SibersTestProject.Controllers
         [HttpPost]
         public ActionResult CreatePhoto(GalleryCreatePhoto galleryView)
         {
-            //var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).ToList();
+            if(galleryView==null)
+            {
+                throw new NullReferenceException();
+            }
+            var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).Select(a=>a.EntityId).ToList();
+            ServicesHost.GetService<IGalleryService>().CreatePhoto(galleryView.EntityId, newPhotos);
             //var newPhotosModel = Mapper.Map<ICollection<PhotoCheck>, ICollection<PhotoView>>(newPhotos);
             //galleryView.Photos.Concat(newPhotosModel);
             //var galleryModel = Mapper.Map<GalleryModel>(galleryView);
             //ServicesHost.GetService<IGalleryService>().Save(galleryModel);
-            //RedirectToAction("ViewGallery", galleryModel.EntityId);
-            return View();
+            return RedirectToAction("Index");
+            //return View();
         }
         public ActionResult ViewGallery(Guid id)
         {
