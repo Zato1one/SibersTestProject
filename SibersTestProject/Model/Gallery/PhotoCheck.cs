@@ -8,10 +8,10 @@ namespace SibersTestProject.Model.Gallery
 {
     public class PhotoCheck
     {
+        public bool Check { get; set; }
+        [UIHint("Image")]
+        public byte[] Image { get; set; }
         [ScaffoldColumn(false)]
         public Guid EntityId { get; set; }
-        public string Name { get; set; }
-        public byte[] Image { get; set; }
-        public bool Check { get; set; }
     }
 }

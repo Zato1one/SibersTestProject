@@ -34,9 +34,6 @@ namespace SibersTestProject.Mappings
             CreateMap<GalleryModel, GalleryCreatePhoto>(MemberList.Source);
             CreateMap<GalleryCreatePhoto, GalleryModel>(MemberList.Source);
 
-            //
-            CreateMap<PhotoModel, PhotoView2>(MemberList.Source);
-            CreateMap<PhotoView2, PhotoModel>(MemberList.Source);
         }
     }
 }

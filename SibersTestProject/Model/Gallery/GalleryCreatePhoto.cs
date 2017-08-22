@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SibersTestProject.Model.Gallery
 {
@@ -12,11 +13,8 @@ namespace SibersTestProject.Model.Gallery
     {
         [ScaffoldColumn(false)]
         public Guid EntityId { get; set; }
-        [ScaffoldColumn(false)]
-        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<PhotoView> Photos { get; set; }
-        public ICollection<PhotoCheck> PhotoCheck { get; set; }
+        public IList<PhotoCheck> PhotoCheck { get; set; }
     }
 }

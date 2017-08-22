@@ -57,34 +57,26 @@ namespace SibersTestProject.Controllers
         }
         public ActionResult CreatePhoto(Guid id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
             var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
             var galleryView = Mapper.Map<GalleryCreatePhoto>(galleryModel);
             var userId = User.Identity.GetUserId();
             var allGalleryPhotos = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
-            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allGalleryPhotos);
+            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allGalleryPhotos).ToList();
             return View(galleryView);
         }
         [HttpPost]
         public ActionResult CreatePhoto(GalleryCreatePhoto galleryView)
         {
-            var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).ToList();
-            var newPhotosModel = Mapper.Map<ICollection<PhotoCheck>, ICollection<PhotoView>>(newPhotos);
-            galleryView.Photos.Concat(newPhotosModel);
-            var galleryModel = Mapper.Map<GalleryModel>(galleryView);
-            ServicesHost.GetService<IGalleryService>().Save(galleryModel);
-            RedirectToAction("ViewGallery", galleryModel.EntityId);
+            //var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).ToList();
+            //var newPhotosModel = Mapper.Map<ICollection<PhotoCheck>, ICollection<PhotoView>>(newPhotos);
+            //galleryView.Photos.Concat(newPhotosModel);
+            //var galleryModel = Mapper.Map<GalleryModel>(galleryView);
+            //ServicesHost.GetService<IGalleryService>().Save(galleryModel);
+            //RedirectToAction("ViewGallery", galleryModel.EntityId);
             return View();
         }
         public ActionResult ViewGallery(Guid id)
         {
-            if(id == null)
-            {
-                return HttpNotFound();
-            }
             var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
             var galleryView = Mapper.Map<GalleryView>(galleryModel);
 

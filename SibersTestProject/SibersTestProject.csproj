@@ -248,13 +248,11 @@
     <Compile Include="Mappings\WebAutomapperProfile.cs" />
     <Compile Include="Model\Account\LoginView.cs" />
     <Compile Include="Model\Account\RegisterView.cs" />
-    <Compile Include="Model\GalleryView2.cs" />
     <Compile Include="Model\Gallery\GalleryCreate.cs" />
     <Compile Include="Model\Gallery\GalleryCreatePhoto.cs" />
     <Compile Include="Model\Gallery\GalleryIndex.cs" />
     <Compile Include="Model\Gallery\GalleryView.cs" />
     <Compile Include="Model\Gallery\PhotoCheck.cs" />
-    <Compile Include="Model\PhotoView2.cs" />
     <Compile Include="Model\Photo\PhotoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -278,6 +276,8 @@
     <Content Include="Views\Gallery\Create.cshtml" />
     <Content Include="Views\Gallery\CreatePhoto.cshtml" />
     <Content Include="Views\Gallery\ViewGallery.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Image.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
