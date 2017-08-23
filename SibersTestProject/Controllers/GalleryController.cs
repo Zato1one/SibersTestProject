@@ -73,12 +73,7 @@ namespace SibersTestProject.Controllers
             }
             var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).Select(a=>a.EntityId).ToList();
             ServicesHost.GetService<IGalleryService>().CreatePhoto(galleryView.EntityId, newPhotos);
-            //var newPhotosModel = Mapper.Map<ICollection<PhotoCheck>, ICollection<PhotoView>>(newPhotos);
-            //galleryView.Photos.Concat(newPhotosModel);
-            //var galleryModel = Mapper.Map<GalleryModel>(galleryView);
-            //ServicesHost.GetService<IGalleryService>().Save(galleryModel);
             return RedirectToAction("Index");
-            //return View();
         }
         public ActionResult ViewGallery(Guid id)
         {
@@ -86,6 +81,17 @@ namespace SibersTestProject.Controllers
             var galleryView = Mapper.Map<GalleryView>(galleryModel);
 
             return View(galleryView);
+        }
+        public ActionResult Delete(Guid id)
+        {
+            ServicesHost.GetService<IGalleryService>().Delete(id);
+            return RedirectToAction("Index");
+        }
+        public ActionResult AllPublicGallery()
+        {
+            var galleryModelList = ServicesHost.GetService<IGalleryService>().GetAllPublicGallery();
+            var galleryViewList = Mapper.Map<ICollection<GalleryModelWithoutImage>, ICollection<GalleryIndex>>(galleryModelList);
+            return View(galleryViewList);
         }
     }
 }

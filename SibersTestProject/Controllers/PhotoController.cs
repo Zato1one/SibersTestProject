@@ -64,5 +64,27 @@ namespace SibersTestProject.Controllers
                 return View();
             }
         }
+        public ActionResult Delete(Guid id)
+        {
+            ServicesHost.GetService<IPhotoService>().Delete(id);
+            return RedirectToAction ("Index");
+        }
+        public ActionResult Edit(Guid id)
+        {
+            var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
+            var photoView = Mapper.Map<PhotoView>(photoModel);
+            photoView.EntityId = id;
+            return View(photoView);
+        }
+        [HttpPost]
+        public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
+        {
+            photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
+            var photoModel = Mapper.Map<PhotoModel>(photoView);
+            ServicesHost.GetService<IPhotoService>().Edit(photoModel);
+            //var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
+            //var photoView = Mapper.Map<PhotoView>(photoModel);
+            return RedirectToAction("Index");
+        }
     }
 }

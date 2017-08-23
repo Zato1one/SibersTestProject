@@ -20,7 +20,8 @@ namespace SibersTestProject.Logic.BL.Service
         }
         public void Delete(Guid modelId)
         {
-            throw new NotImplementedException();
+            UnitOfWork.GetRepository<Gallery>().Delete(modelId);
+            UnitOfWork.SaveChanges();
         }
 
         public void Delete(GalleryModel model)
@@ -84,11 +85,21 @@ namespace SibersTestProject.Logic.BL.Service
         {
             var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
             if (gallery == null) throw new NullReferenceException();
+            var photos = new List<Photo>();
             foreach (var idPhoto in idPhotos)
             {
-                gallery.Photos.Add(UnitOfWork.GetRepository<Photo>().GetById(idPhoto));
+                var photo = UnitOfWork.GetRepository<Photo>().GetById(idPhoto);
+                photos.Add(photo);
             }
+            if (gallery.Photos == null) gallery.Photos = photos;
+            else gallery.Photos = gallery.Photos.Concat(photos).ToList();
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
+        }
+        public ICollection<GalleryModelWithoutImage> GetAllPublicGallery()
+        {
+            var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.IsPublic).ToList();
+
+            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
         }
     }
 }

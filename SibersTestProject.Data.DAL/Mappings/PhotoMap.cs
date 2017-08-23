@@ -13,6 +13,9 @@ namespace SibersTestProject.Data.DAL.Mappings
             this.HasRequired(entity => entity.User)
                 .WithMany(studio => studio.Photos)
                 .HasForeignKey(entity => entity.UserId);
+
+            //this.HasMany(a => a.Galleries)
+            //    .WithMany(b => b.Photos);
         }
     }
 }

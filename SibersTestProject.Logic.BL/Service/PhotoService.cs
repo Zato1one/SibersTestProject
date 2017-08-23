@@ -25,7 +25,8 @@ namespace SibersTestProject.Logic.BL.Service
 
         public void Delete(Guid modelId)
         {
-            throw new NotImplementedException();
+            UnitOfWork.GetRepository<Photo>().Delete(modelId);
+            UnitOfWork.SaveChanges();
         }
 
         public void Delete(PhotoModel model)
@@ -40,12 +41,26 @@ namespace SibersTestProject.Logic.BL.Service
 
         public PhotoModel GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(id);
+            return Mapper.Map<PhotoModel>(dbPhoto);
         }
 
         public void Save(PhotoModel model)
         {
-            throw new NotImplementedException();
+            var store = this.UnitOfWork.GetRepository<Photo>().GetById(model.EntityId);
+
+            if (store == null)
+            {
+                store = AutoMapper.Mapper.Map<Photo>(model);
+                this.UnitOfWork.GetRepository<Photo>().Insert(store);
+            }
+            else
+            {
+                AutoMapper.Mapper.Map(model, store);
+                this.UnitOfWork.GetRepository<Photo>().Update(store);
+            }
+
+            this.UnitOfWork.SaveChanges();
         }
 
         public void UploadPhoto(PhotoModel photoModel)
@@ -71,6 +86,11 @@ namespace SibersTestProject.Logic.BL.Service
                 return image;
             }
         }
+        public void Edit(PhotoModel model)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #region Private Method
         private bool isImageType(HttpPostedFileBase file)

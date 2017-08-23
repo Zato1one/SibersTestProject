@@ -12,5 +12,6 @@ namespace SibersTestProject.Model.Gallery
         public string Description { get; set; }
         [ScaffoldColumn(false)]
         public Guid UserId { get; set; }
+        public bool IsPublic { get; set; }
     }
 }

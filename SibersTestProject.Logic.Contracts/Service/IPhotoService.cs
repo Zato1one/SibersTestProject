@@ -14,5 +14,6 @@ namespace SibersTestProject.Logic.Contracts.Service
         ICollection<PhotoModel> GetAllUserPhoto(Guid userId);
         void UploadPhoto(PhotoModel photoModel);
         byte[] FileBaseToImage(HttpPostedFileBase file);
+        void Edit(PhotoModel model);
     }
 }

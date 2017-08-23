@@ -1,0 +1,19 @@
+﻿@model SibersTestProject.Model.Photo.PhotoView
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm("Edit", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m => m.Name)
+    @Html.EditorFor(m => m.Name)
+
+    @Html.LabelFor(m => m.Description)
+    @Html.EditorFor(m => m.Description)
+
+    @Html.DisplayFor(a=>a.Image)
+
+    <input type="file" name="file" />
+    <input type="submit" value="ChangePhoto" />
+}
