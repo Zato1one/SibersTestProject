@@ -90,6 +90,11 @@ namespace SibersTestProject.Logic.BL.Service
         {
             throw new NotImplementedException();
         }
+        public byte[] GetImageById(Guid id)
+        {
+            return UnitOfWork.GetRepository<Photo>().GetById(id).Image;
+
+        }
 
 
         #region Private Method

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Logic.Contracts;
+using SibersTestProject.Logic.Contracts.Service;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,6 +36,13 @@ namespace SibersTestProject.Controllers
                 });
             }
             return View(viewUsers);
+        }
+        public FileContentResult Image(Guid id)
+        {
+            var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
+            if (id == null) throw new NullReferenceException();
+            
+            return new FileContentResult(imgByteArr, "image/jpeg");
         }
     }
 }

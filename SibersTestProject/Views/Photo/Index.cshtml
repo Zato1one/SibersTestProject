@@ -18,8 +18,11 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Image)
+            </td>*@
+            <td>
+                <img class="previewImage" src="/Home/Image/@item.EntityId" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

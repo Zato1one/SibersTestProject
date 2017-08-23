@@ -15,5 +15,6 @@ namespace SibersTestProject.Logic.Contracts.Service
         void UploadPhoto(PhotoModel photoModel);
         byte[] FileBaseToImage(HttpPostedFileBase file);
         void Edit(PhotoModel model);
+        byte[] GetImageById(Guid id);
     }
 }
