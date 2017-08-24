@@ -35,6 +35,7 @@ namespace SibersTestProject.Data.DAL.Context
             modelBuilder.Entity<ProjectUserClaim>().ToTable("UserClaims");
 
             // Configurations
+            modelBuilder.Configurations.Add(new ImageMap());
             modelBuilder.Configurations.Add(new PhotoMap());
             modelBuilder.Configurations.Add(new GalleryMap());
 

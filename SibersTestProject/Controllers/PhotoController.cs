@@ -42,10 +42,11 @@ namespace SibersTestProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
+                    var arrayImage = ServicesHost.GetService<IImageService>().FileBaseToArray(file);                  
                     photoView.UserId = User.Identity.GetUserId();
                     var photoModel = Mapper.Map<PhotoModel>(photoView);
-                    ServicesHost.GetService<IPhotoService>().UploadPhoto(photoModel);
+                    ServicesHost.GetService<IPhotoService>().SavePhoto(photoModel);
+                    ServicesHost.GetService<IImageService>().SaveImage(photoModel.EntityId,arrayImage);
                     ViewBag.StateUpload = "Success upload";
 
 
@@ -73,24 +74,26 @@ namespace SibersTestProject.Controllers
             ServicesHost.GetService<IPhotoService>().Delete(id);
             return RedirectToAction ("Index");
         }
-        public ActionResult Edit(Guid id)
-        {
-            var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
-            var photoView = Mapper.Map<PhotoView>(photoModel);
-            photoView.EntityId = id;
-            return View(photoView);
-        }
-        [HttpPost]
-        public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
-        {
 
-            photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);          
-            var photoModel = Mapper.Map<PhotoModel>(photoView);
-            ServicesHost.GetService<IPhotoService>().Edit(photoModel);
-            //var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
-            //var photoView = Mapper.Map<PhotoView>(photoModel);
-            return RedirectToAction("Index");
-        }
+
+        //public ActionResult Edit(Guid id)
+        //{
+        //    var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
+        //    var photoView = Mapper.Map<PhotoView>(photoModel);
+        //    photoView.EntityId = id;
+        //    return View(photoView);
+        //}
+        //[HttpPost]
+        //public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
+        //{
+
+        //    photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);          
+        //    var photoModel = Mapper.Map<PhotoModel>(photoView);
+        //    ServicesHost.GetService<IPhotoService>().Edit(photoModel);
+        //    //var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
+        //    //var photoView = Mapper.Map<PhotoView>(photoModel);
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }

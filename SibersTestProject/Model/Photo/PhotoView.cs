@@ -11,8 +11,6 @@ namespace SibersTestProject.Model.Photo
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        [UIHint("Image")]
-        public byte[] Image { get; set; }
         [ScaffoldColumn(false)]
         public Guid UserId { get; set; }
     }

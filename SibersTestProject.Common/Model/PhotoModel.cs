@@ -9,6 +9,5 @@ namespace SibersTestProject.Common.Model
 {
     public class PhotoModel : PhotoModelWithoutImage
     {
-        public byte[] Image { get; set; }
     }
 }

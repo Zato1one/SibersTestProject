@@ -63,12 +63,13 @@ namespace SibersTestProject.Logic.BL.Service
             this.UnitOfWork.SaveChanges();
         }
 
-        public void UploadPhoto(PhotoModel photoModel)
+        public void SavePhoto(PhotoModel photoModel)
         {
             var dbPhoto = Mapper.Map<Photo>(photoModel);
             UnitOfWork.GetRepository<Photo>().Insert(dbPhoto);
             UnitOfWork.SaveChanges();
         }
+
         public ICollection<PhotoModel> GetAllUserPhoto(Guid userId)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>()
@@ -76,43 +77,10 @@ namespace SibersTestProject.Logic.BL.Service
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
         }
-        public byte[] FileBaseToImage(HttpPostedFileBase file)
-        {
-            byte[] image;
-            if (!isImageType(file)) throw new ExteptionTypeNotImage();
-            using (var binaryReader = new BinaryReader(file.InputStream))
-            {
-                image = binaryReader.ReadBytes(file.ContentLength);
-                return image;
-            }
-        }
         public void Edit(PhotoModel model)
         {
             throw new NotImplementedException();
         }
-        public byte[] GetImageById(Guid id)
-        {
-            return UnitOfWork.GetRepository<Photo>().GetById(id).Image;
-
-        }
-
-
-        #region Private Method
-        private bool isImageType(HttpPostedFileBase file)
-        {
-            var ImageMinimumBytes = 512;
-            var contentType = file.ContentType.ToLower();
-            var contentLength = file.ContentLength;
-            if (contentLength < ImageMinimumBytes) return false;
-            if (contentType != "image/jpg" &&
-                contentType != "image/jpeg" &&
-                contentType != "image/pjpeg" &&
-                contentType != "image/gif" &&
-                contentType != "image/x-png" &&
-                contentType != "image/png") return false;
-            return true;
-        }
-        #endregion Private Method
 
     }
 }

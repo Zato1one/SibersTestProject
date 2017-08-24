@@ -12,11 +12,10 @@ namespace SibersTestProject.Data.DAL.Entities
         public string Name { get; set; }
         [MaxLength(200)]
         public string Description { get; set; }
-        [Required]
-        public byte[] Image { get; set; }
         public Guid UserId { get; set; }
         public virtual ProjectUser User { get; set; }
         public virtual ICollection<Gallery> Galleries { get; set; }
+        public virtual Image Image { get; set; }
   
     }
 }

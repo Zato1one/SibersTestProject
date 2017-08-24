@@ -46,6 +46,7 @@
     <Compile Include="Service\Base\ICrudService.cs" />
     <Compile Include="Service\Base\IService.cs" />
     <Compile Include="Service\IGalleryService.cs" />
+    <Compile Include="Service\IImageService.cs" />
     <Compile Include="Service\IPhotoService.cs" />
   </ItemGroup>
   <ItemGroup>

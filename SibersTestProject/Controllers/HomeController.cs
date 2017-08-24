@@ -38,31 +38,31 @@ namespace SibersTestProject.Controllers
             }
             return View(viewUsers);
         }
-        public FileContentResult Image2(Guid id)
+        public FileContentResult Image(Guid id)
         {
-            var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
+            var imgByteArr = ServicesHost.GetService<IImageService>().GetImageById(id);
             if (id == null) throw new NullReferenceException();
 
             
             return new FileContentResult(imgByteArr, "image/jpeg");
         }
-        public FileContentResult Image(Guid id)
-        {
+        //public FileContentResult Image(Guid id)
+        //{
 
-                var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
-                if (id == null) throw new NullReferenceException();
-            var inputStream = new MemoryStream(imgByteArr);
+        //        var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
+        //        if (id == null) throw new NullReferenceException();
 
-            var memoryStream = new MemoryStream();
-            ImageBuilder.Current.Build(new ImageJob(inputStream, memoryStream,
-                new Instructions()
-                {
-                    Width = 100,
-                    Height = 100,
-                    Mode = FitMode.Carve
-                }));
-            return new FileContentResult(memoryStream.ToArray(), "image/jpeg");
-
-        }
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        ImageBuilder.Current.Build(new ImageJob(imgByteArr, memoryStream,
+        //            new Instructions()
+        //            {
+        //                Width = 100,
+        //                Height = 100,
+        //                Mode = FitMode.Carve
+        //            }));
+        //        return new FileContentResult(memoryStream.ToArray(), "image/jpeg");
+        //    }
+        //}
     }
 }

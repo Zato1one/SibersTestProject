@@ -254,6 +254,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -304,6 +305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SibersTestProject.Common\SibersTestProject.Common.csproj">
