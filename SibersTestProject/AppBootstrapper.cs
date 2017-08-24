@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ImageResizer.Plugins.DiskCache;
+using ImageResizer.Plugins.PrettyGifs;
 using SibersTestProject.Logic.BL.Mappings;
 using SibersTestProject.Mappings;
 using System;
@@ -12,14 +14,19 @@ namespace SibersTestProject
     {
         public static void Init()
         {
-
+            //AutoMapper profile 
             Mapper.Initialize(config => {
                 config.AddProfile<BllAutomapperProfile>();
                 config.AddProfile<WebAutomapperProfile>();
 
             });
 
-           // Mapper.Configuration.AssertConfigurationIsValid();
+            // Mapper.Configuration.AssertConfigurationIsValid();
+
+
+            //ImageResizer plugins
+            new DiskCache().Install(ImageResizer.Configuration.Config.Current);
+            new PrettyGifs().Install(ImageResizer.Configuration.Config.Current);
         }
     }
 }

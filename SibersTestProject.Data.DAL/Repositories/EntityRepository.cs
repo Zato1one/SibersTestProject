@@ -34,6 +34,7 @@ namespace SibersTestProject.Data.DAL.Repositories
 
         public T GetById(object id)
         {
+
             var entity = DbSet.Find(id);
             if (entity != null && entity.IsArchive == false) return entity;
             return null;

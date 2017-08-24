@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using ImageResizer;
+using Microsoft.AspNet.Identity;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
@@ -37,12 +38,31 @@ namespace SibersTestProject.Controllers
             }
             return View(viewUsers);
         }
-        public FileContentResult Image(Guid id)
+        public FileContentResult Image2(Guid id)
         {
             var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
             if (id == null) throw new NullReferenceException();
+
             
             return new FileContentResult(imgByteArr, "image/jpeg");
+        }
+        public FileContentResult Image(Guid id)
+        {
+
+                var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
+                if (id == null) throw new NullReferenceException();
+            var inputStream = new MemoryStream(imgByteArr);
+
+            var memoryStream = new MemoryStream();
+            ImageBuilder.Current.Build(new ImageJob(inputStream, memoryStream,
+                new Instructions()
+                {
+                    Width = 100,
+                    Height = 100,
+                    Mode = FitMode.Carve
+                }));
+            return new FileContentResult(memoryStream.ToArray(), "image/jpeg");
+
         }
     }
 }

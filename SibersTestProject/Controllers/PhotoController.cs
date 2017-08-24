@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using SibersTestProject.Common.Extensions;
 using AutoMapper;
 using SibersTestProject.Model.Photo;
+using ImageResizer;
+using System.Drawing;
 
 namespace SibersTestProject.Controllers
 {
@@ -45,6 +47,8 @@ namespace SibersTestProject.Controllers
                     var photoModel = Mapper.Map<PhotoModel>(photoView);
                     ServicesHost.GetService<IPhotoService>().UploadPhoto(photoModel);
                     ViewBag.StateUpload = "Success upload";
+
+
                 }
                 return View();
             }
@@ -79,12 +83,14 @@ namespace SibersTestProject.Controllers
         [HttpPost]
         public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
         {
-            photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);
+
+            photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);          
             var photoModel = Mapper.Map<PhotoModel>(photoView);
             ServicesHost.GetService<IPhotoService>().Edit(photoModel);
             //var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
             //var photoView = Mapper.Map<PhotoView>(photoModel);
             return RedirectToAction("Index");
         }
+
     }
 }
