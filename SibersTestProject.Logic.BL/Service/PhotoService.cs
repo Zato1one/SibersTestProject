@@ -77,10 +77,6 @@ namespace SibersTestProject.Logic.BL.Service
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
         }
-        public void Edit(PhotoModel model)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

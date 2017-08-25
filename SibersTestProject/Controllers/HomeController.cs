@@ -1,5 +1,6 @@
 ﻿using ImageResizer;
 using Microsoft.AspNet.Identity;
+using SibersTestProject.Common.Enums;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
@@ -38,14 +39,23 @@ namespace SibersTestProject.Controllers
             }
             return View(viewUsers);
         }
-        public FileContentResult Image(Guid id)
+        public ActionResult Image(string imageResolution, Guid id)
         {
-            var imgByteArr = ServicesHost.GetService<IImageService>().GetImageById(id);
-            if (id == null) throw new NullReferenceException();
-
-            
-            return new FileContentResult(imgByteArr, "image/jpeg");
+            try
+            {
+                var photoResolution = (PhotoResolution)Enum.Parse(
+                                              typeof(PhotoResolution), imageResolution, true);
+                var imgByteArr = ServicesHost.GetService<IImageService>().GetImageById(id, photoResolution);
+                if (id == null) throw new NullReferenceException();
+                var mimeType = "image/jpeg";
+                return new FileContentResult(imgByteArr, mimeType);
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
+
         //public FileContentResult Image(Guid id)
         //{
 

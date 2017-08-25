@@ -22,7 +22,7 @@
                 @Html.DisplayFor(modelItem => item.Image)
             </td>*@
             <td>
-                <img src="/Home/Image/@item.EntityId" />
+                <img src="/Home/Image/Small/@item.EntityId" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -31,8 +31,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Delete photo", "Delete", new { id = item.EntityId }) | 
-                @Html.ActionLink("Edit photos", "Edit", new { id = item.EntityId })                
+                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId }) | 
+                @Html.ActionLink("Open", "Open", new { id = item.EntityId })                
             </td>
         </tr>
     }

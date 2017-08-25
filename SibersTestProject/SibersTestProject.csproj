@@ -295,6 +295,7 @@
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
     <Content Include="Views\Photo\Edit.cshtml" />
     <Content Include="Views\Gallery\AllPublicGallery.cshtml" />
+    <Content Include="Views\Photo\Open.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

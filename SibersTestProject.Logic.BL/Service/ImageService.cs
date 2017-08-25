@@ -1,4 +1,5 @@
 ﻿using ImageResizer;
+using SibersTestProject.Common.Enums;
 using SibersTestProject.Common.Extensions;
 using SibersTestProject.Data.Contracts;
 using SibersTestProject.Data.DAL.Entities;
@@ -21,9 +22,19 @@ namespace SibersTestProject.Logic.BL.Service
             : base(servicesHost, unitOfWork) {
         }
 
-        public byte[] GetImageById(Guid id)
+        public byte[] GetImageById(Guid id, PhotoResolution imageResolution)
         {
-            return UnitOfWork.GetRepository<Image>().GetById(id).SmallImage;
+            switch (imageResolution)
+            {
+                case PhotoResolution.Small:
+                    return UnitOfWork.GetRepository<Image>().GetById(id).SmallImage;
+                case PhotoResolution.Medium:
+                    return UnitOfWork.GetRepository<Image>().GetById(id).MediumImage;
+                case PhotoResolution.Original:
+                    return UnitOfWork.GetRepository<Image>().GetById(id).OriginalImage;
+                default:
+                    throw new Exception();
+            }
         }
 
         public byte[] FileBaseToArray(HttpPostedFileBase file)
@@ -55,19 +66,37 @@ namespace SibersTestProject.Logic.BL.Service
         public void SaveImage(Guid id,byte[] arrayImage)
         {
             var dbImage = new Image() { EntityId = id };
-            using (var memoryStream = new MemoryStream())
+            dbImage = SaveImageLogic(dbImage, arrayImage);
+            UnitOfWork.GetRepository<Image>().Insert(dbImage);
+            UnitOfWork.SaveChanges();
+        }
+
+        private Image SaveImageLogic(Image image, byte[] arrayImage)
+        {
+            var smallImageInstructions = new Instructions()
             {
-                ImageBuilder.Current.Build(new ImageJob(arrayImage, memoryStream,
-                    new Instructions()
-                    {
-                        Width = 100,
-                        Height = 100,
-                        Mode = FitMode.Carve
-                    }));
-                dbImage.SmallImage = memoryStream.ToArray();
-                UnitOfWork.GetRepository<Image>().Insert(dbImage);
-                UnitOfWork.SaveChanges();
+                Width = 100,
+                Height = 100,
+                Mode = FitMode.Carve,
+                Format = "jpg"
+            };
+            var mediumImageInstructions = new Instructions()
+            {
+                Width = 600,
+                Height = 600,
+                Mode = FitMode.Max,
+                Format = "jpg"
+            };
+            using (var memoryStreamSmallImage = new MemoryStream())
+            using (var memoryStreamMediumImage = new MemoryStream())
+            { 
+                ImageBuilder.Current.Build(new ImageJob(arrayImage, memoryStreamSmallImage, smallImageInstructions));
+                image.SmallImage = memoryStreamSmallImage.ToArray();
+                ImageBuilder.Current.Build(new ImageJob(arrayImage, memoryStreamMediumImage, mediumImageInstructions));
+                image.MediumImage = memoryStreamMediumImage.ToArray();
             }
+            image.OriginalImage = arrayImage;
+            return image;
         }
 
     }

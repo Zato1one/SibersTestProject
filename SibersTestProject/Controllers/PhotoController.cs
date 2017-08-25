@@ -30,7 +30,6 @@ namespace SibersTestProject.Controllers
 
             return View(photoViewList);
         }
-
         public ActionResult Upload()
         {
             return View();
@@ -74,26 +73,11 @@ namespace SibersTestProject.Controllers
             ServicesHost.GetService<IPhotoService>().Delete(id);
             return RedirectToAction ("Index");
         }
-
-
-        //public ActionResult Edit(Guid id)
-        //{
-        //    var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
-        //    var photoView = Mapper.Map<PhotoView>(photoModel);
-        //    photoView.EntityId = id;
-        //    return View(photoView);
-        //}
-        //[HttpPost]
-        //public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
-        //{
-
-        //    photoView.Image = ServicesHost.GetService<IPhotoService>().FileBaseToImage(file);          
-        //    var photoModel = Mapper.Map<PhotoModel>(photoView);
-        //    ServicesHost.GetService<IPhotoService>().Edit(photoModel);
-        //    //var photoModel = ServicesHost.GetService<IPhotoService>().GetById(id);
-        //    //var photoView = Mapper.Map<PhotoView>(photoModel);
-        //    return RedirectToAction("Index");
-        //}
+        public ActionResult Open(Guid id)
+        {
+            var photo = ServicesHost.GetService<IPhotoService>().GetById(id);
+            return View(photo);
+        }
 
     }
 }

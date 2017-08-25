@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PhotoResolution.cs" />
     <Compile Include="Enums\RoleName.cs" />
     <Compile Include="Extensions\AutomapperExtension.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />

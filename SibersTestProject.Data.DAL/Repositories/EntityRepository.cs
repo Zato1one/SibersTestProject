@@ -69,8 +69,7 @@ namespace SibersTestProject.Data.DAL.Repositories
         public void Delete(object id)
         {
             var entity = GetById(id);
-            if (entity != null)
-                Delete(entity);
+            if (entity != null)Delete(entity);
         }
 
         public void Delete(T entity)

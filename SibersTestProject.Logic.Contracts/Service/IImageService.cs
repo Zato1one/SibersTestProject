@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SibersTestProject.Logic.Contracts.Service.Base;
 using System.Web;
+using SibersTestProject.Common.Enums;
 
 namespace SibersTestProject.Logic.Contracts.Service
 {
@@ -12,6 +13,6 @@ namespace SibersTestProject.Logic.Contracts.Service
     {
         byte[] FileBaseToArray(HttpPostedFileBase file);
         void SaveImage(Guid id,byte[] arrayImage);
-        byte[] GetImageById(Guid id);
+        byte[] GetImageById(Guid id, PhotoResolution imageResolution);
     }
 }
