@@ -15,5 +15,7 @@ namespace SibersTestProject.Logic.Contracts.Service
         GalleryModel GetGalleryById(Guid galleryId);
         void CreatePhoto(Guid idGallery, ICollection<Guid> idPhotos);
         ICollection<GalleryModelWithoutImage> GetAllPublicGallery();
+        void DeletePhoto(Guid idGallery, ICollection<Guid> idPhotos);
+        void Edit(GalleryModel galleryModel);
     }
 }

@@ -13,14 +13,5 @@ namespace SibersTestProject.Controllers
         public ImageController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
-        //public FileContentResult GetImageById(Guid id)
-        //{
-
-        //    var imgByteArr = ServicesHost.GetService<IImageService>().GetImageById(id);
-        //    if (id == null) throw new NullReferenceException();
-
-
-        //    return new FileContentResult(imgByteArr, "image/jpeg");
-        //}
     }
 }

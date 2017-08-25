@@ -55,24 +55,5 @@ namespace SibersTestProject.Controllers
                 return HttpNotFound();
             }
         }
-
-        //public FileContentResult Image(Guid id)
-        //{
-
-        //        var imgByteArr = ServicesHost.GetService<IPhotoService>().GetImageById(id);
-        //        if (id == null) throw new NullReferenceException();
-
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        ImageBuilder.Current.Build(new ImageJob(imgByteArr, memoryStream,
-        //            new Instructions()
-        //            {
-        //                Width = 100,
-        //                Height = 100,
-        //                Mode = FitMode.Carve
-        //            }));
-        //        return new FileContentResult(memoryStream.ToArray(), "image/jpeg");
-        //    }
-        //}
     }
 }

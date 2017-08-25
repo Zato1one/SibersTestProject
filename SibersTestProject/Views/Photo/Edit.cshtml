@@ -6,13 +6,15 @@
 <h2>Edit</h2>
 @using (Html.BeginForm("Edit", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(a=>a.EntityId)
+
     @Html.LabelFor(m => m.Name)
     @Html.EditorFor(m => m.Name)
 
     @Html.LabelFor(m => m.Description)
     @Html.EditorFor(m => m.Description)
 
-    @Html.DisplayFor(a=>a.Image)
+    <img src="/Home/Image/Small/@Model.EntityId" />
 
     <input type="file" name="file" />
     <input type="submit" value="ChangePhoto" />

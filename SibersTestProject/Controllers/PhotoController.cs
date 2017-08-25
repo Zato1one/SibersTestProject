@@ -11,7 +11,8 @@ using SibersTestProject.Common.Extensions;
 using AutoMapper;
 using SibersTestProject.Model.Photo;
 using ImageResizer;
-using System.Drawing;
+using SibersTestProject.Data.DAL.Entities;
+using SibersTestProject.Common.Enums;
 
 namespace SibersTestProject.Controllers
 {
@@ -78,6 +79,33 @@ namespace SibersTestProject.Controllers
             var photo = ServicesHost.GetService<IPhotoService>().GetById(id);
             return View(photo);
         }
-
+        public ActionResult Save(Guid id)
+        {
+            string contentType = "Image/jpeg";
+            byte[] image = ServicesHost.GetService<IImageService>().GetImageById(id, PhotoResolution.Original);
+            if (image == null)
+            {
+                return HttpNotFound();
+            }
+            return File(image, contentType, Guid.NewGuid().ToString() + ".jpg");
+    }
+        public ActionResult Edit(Guid id)
+        {
+            var photo = ServicesHost.GetService<IPhotoService>().GetById(id);
+            var photoView = Mapper.Map<PhotoView>(photo);
+            return View(photoView);
+        }
+        [HttpPost]
+        public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
+        {
+            var photoModel = Mapper.Map<PhotoModel>(photoView);
+            ServicesHost.GetService<IPhotoService>().Edit(photoModel);
+            if(file!=null)
+            {
+                //change image 
+                ServicesHost.GetService<IImageService>().EditImage(photoModel.EntityId, file);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

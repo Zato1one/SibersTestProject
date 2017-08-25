@@ -6,7 +6,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.Display("Image")
+            @Html.Label("Image")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -14,13 +14,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>*@
             <td>
                 <img src="/Home/Image/Small/@item.EntityId" />
             </td>
@@ -31,8 +29,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId }) | 
-                @Html.ActionLink("Open", "Open", new { id = item.EntityId })                
+                @Html.ActionLink("Open", "Open", new { id = item.EntityId }) | 
+                @Html.ActionLink("Edit", "Edit", new { id = item.EntityId }) | 
+                @Html.ActionLink("Save", "Save", new { id = item.EntityId }) | 
+                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId })              
             </td>
         </tr>
     }

@@ -13,5 +13,7 @@ namespace SibersTestProject.Logic.Contracts.Service
     {
         ICollection<PhotoModel> GetAllUserPhoto(Guid userId);
         void SavePhoto(PhotoModel photoModel);
+        void Edit(PhotoModel photoModel);
+        ICollection<PhotoModel> GetPhotoByGalleryId(Guid userId);
     }
 }

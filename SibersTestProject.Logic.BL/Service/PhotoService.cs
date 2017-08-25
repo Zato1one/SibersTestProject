@@ -77,6 +77,26 @@ namespace SibersTestProject.Logic.BL.Service
 
             return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
         }
+        public void Edit(PhotoModel photoModel)
+        {
+            var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(photoModel.EntityId);
+            dbPhoto.Name = photoModel.Name;
+            dbPhoto.Description = photoModel.Description;
 
+            UnitOfWork.GetRepository<Photo>().Update(dbPhoto);
+            UnitOfWork.SaveChanges();
+        }
+        public ICollection<PhotoModel> GetPhotoByGalleryId(Guid galleryId)
+        {
+            var dbPhoto = UnitOfWork.GetRepository<Photo>()
+                 .GetAll().Select(b => b.EntityId).Where(a => a == galleryId).ToList();
+            var collection = new List<Photo>();
+            foreach (var item in dbPhoto)
+            {
+                collection.Add(UnitOfWork.GetRepository<Photo>().GetById(item));
+            }
+
+            return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(collection);
+        }
     }
 }

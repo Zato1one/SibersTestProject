@@ -24,9 +24,11 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Add photos", "CreatePhoto", new { id = item.EntityId }) |
-                @Html.ActionLink("Open gallery", "ViewGallery", new { id = item.EntityId }) | 
-                @Html.ActionLink("Delete gallery", "Delete", new { id = item.EntityId })
+                @Html.ActionLink("Open", "ViewGallery", new { id = item.EntityId }) | 
+                @Html.ActionLink("Edit", "Edit", new { id = item.EntityId }) | 
+                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId }) | 
+                @Html.ActionLink("Add photos", "CreatePhoto", new { id = item.EntityId }) | 
+                @Html.ActionLink("Delete photos", "DeletePhoto", new { id = item.EntityId })
             </td>
         </tr>
     }

@@ -99,5 +99,15 @@ namespace SibersTestProject.Logic.BL.Service
             return image;
         }
 
+        public void EditImage(Guid id,HttpPostedFileBase file)
+        {
+            var arrayImage = FileBaseToArray(file);
+            var image = UnitOfWork.GetRepository<Image>().GetById(id);
+            if (image == null) throw new NullReferenceException();
+            var dbImage = SaveImageLogic(image, arrayImage);
+            UnitOfWork.GetRepository<Image>().Update(dbImage);
+            UnitOfWork.SaveChanges();
+        }
+
     }
 }

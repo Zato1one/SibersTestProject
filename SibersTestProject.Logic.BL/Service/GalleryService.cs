@@ -94,12 +94,35 @@ namespace SibersTestProject.Logic.BL.Service
             if (gallery.Photos == null) gallery.Photos = photos;
             else gallery.Photos = gallery.Photos.Concat(photos).ToList();
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
+            UnitOfWork.SaveChanges();
         }
         public ICollection<GalleryModelWithoutImage> GetAllPublicGallery()
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.IsPublic).ToList();
 
             return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
+        }
+
+        public void Edit(GalleryModel galleryModel)
+        {
+            var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryModel.EntityId);
+            dbGallery.Name = galleryModel.Name;
+            dbGallery.Description = galleryModel.Description;
+            dbGallery.IsPublic = galleryModel.IsPublic;
+
+            UnitOfWork.GetRepository<Gallery>().Update(dbGallery);
+            UnitOfWork.SaveChanges();
+        }
+        public void DeletePhoto(Guid idGallery, ICollection<Guid> idPhotos)
+        {
+            var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
+            if (gallery == null) throw new NullReferenceException();
+            foreach (var idPhoto in idPhotos)
+            {
+                var photo = UnitOfWork.GetRepository<Photo>().GetById(idPhoto);
+                gallery.Photos.Remove(photo);
+            }
+            UnitOfWork.GetRepository<Gallery>().Update(gallery);
         }
     }
 }

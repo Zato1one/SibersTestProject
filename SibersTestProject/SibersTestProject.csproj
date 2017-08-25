@@ -296,6 +296,8 @@
     <Content Include="Views\Photo\Edit.cshtml" />
     <Content Include="Views\Gallery\AllPublicGallery.cshtml" />
     <Content Include="Views\Photo\Open.cshtml" />
+    <Content Include="Views\Gallery\Edit.cshtml" />
+    <Content Include="Views\Gallery\DeletePhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

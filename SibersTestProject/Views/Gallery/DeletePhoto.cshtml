@@ -1,0 +1,29 @@
+﻿@model SibersTestProject.Model.Gallery.GalleryCreatePhoto
+
+@{
+    ViewBag.Title = "DeletePhoto";
+}
+
+<h2>DeletePhoto</h2>
+<hr>
+@Html.DisplayFor(x => x.Name)
+<hr>
+@using (Html.BeginForm("DeletePhoto", "Gallery", FormMethod.Post))
+{
+    @Html.HiddenFor(a => a.EntityId)
+    @*@Html.EditorFor(a=>a.PhotoCheck)*@
+    @*foreach (var item in Model.PhotoCheck)
+        {
+            @Html.HiddenFor(x => item.EntityId)
+            @Html.DisplayFor(x => item.Image)
+            @Html.EditorFor(x => item.Check)
+        }*@
+for (int i = 0; i < Model.PhotoCheck.Count; i++)
+{
+    @Html.HiddenFor(m => m.PhotoCheck[i].EntityId)
+    <img src="/Home/Image/Small/@Model.PhotoCheck[i].EntityId" />
+    @Html.EditorFor(m => m.PhotoCheck[i].Check)
+}
+
+    <button type="submit">Delete</button>
+}

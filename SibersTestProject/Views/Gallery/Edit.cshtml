@@ -1,0 +1,23 @@
+﻿@model SibersTestProject.Model.Gallery.GalleryCreate
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Gallery", FormMethod.Post))
+{
+    @Html.HiddenFor(a=>a.EntityId)
+
+    @Html.LabelFor(m => m.Name)
+    @Html.EditorFor(m => m.Name)
+
+    @Html.LabelFor(m => m.Description)
+    @Html.EditorFor(m => m.Description)
+
+    @Html.LabelFor(m => m.IsPublic)
+    @Html.EditorFor(m => m.IsPublic)
+
+
+    <input type="submit" value="Create" />
+}
