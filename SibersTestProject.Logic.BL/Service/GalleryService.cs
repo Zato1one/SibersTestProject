@@ -58,10 +58,6 @@ namespace SibersTestProject.Logic.BL.Service
 
             UnitOfWork.SaveChanges();
         }
-        public void CreateGallery(GalleryModel galleryModel)
-        {
-
-        }
         public ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId)
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>()
@@ -71,6 +67,7 @@ namespace SibersTestProject.Logic.BL.Service
         }
         public GalleryModel GetGalleryById(Guid galleryId)
         {
+            //var dbGallery = UnitOfWork.GetRepository<Gallery>().Include(a=>a.Photos).Where(a=>a.EntityId==galleryId).First();
             var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
 
             return Mapper.Map<GalleryModel>(dbGallery);
@@ -123,6 +120,7 @@ namespace SibersTestProject.Logic.BL.Service
                 gallery.Photos.Remove(photo);
             }
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
+            UnitOfWork.SaveChanges();
         }
     }
 }

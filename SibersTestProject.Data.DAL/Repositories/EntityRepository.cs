@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,9 +28,13 @@ namespace SibersTestProject.Data.DAL.Repositories
             return DbSet.Where(entity => !entity.IsArchive);
         }
 
-        public IQueryable<T> SearchFor(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate)
         {
             return GetAll().Where(predicate);
+        }
+        public IQueryable<T> Include(Expression<Func<T, object>> predicate) 
+        {
+            return DbSet.Include(predicate);
         }
 
         public T GetById(object id)

@@ -30,6 +30,7 @@ namespace SibersTestProject.Controllers
             {
                 viewUsers.Add(new UserModel()
                 {
+                    EntityId = user.Id,
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,

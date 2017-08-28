@@ -1,0 +1,30 @@
+﻿@model SibersTestProject.Model.Admin.ChangeRole
+@{
+    ViewBag.Title = "ChangeRole";
+}
+
+<h2>ChangeRole</h2>
+<div class="container">
+
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(a => a.userId)
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName)
+            @Html.DisplayFor(m => m.UserName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurentRole)
+            @Html.DisplayFor(a=>a.CurentRole)
+            @for (int i = 0; i < Model.CurentRole.Count; i++)
+            {
+            @Html.HiddenFor(m => m.CurentRole[i])
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(a => a.RoleName)
+            @Html.EnumDropDownListFor(x => x.RoleName)
+        </div>
+            <input type="submit" value="ChangeRole" />
+            }
+        </div>

@@ -12,4 +12,5 @@ namespace SibersTestProject.Common.Enums
         public const string Admin = "Admin";
         public const string User = "User";
     }
+    public enum RoleNameEnume { User, Admin, SuperAdmin }
 }

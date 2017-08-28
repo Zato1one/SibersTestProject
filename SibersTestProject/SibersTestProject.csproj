@@ -251,10 +251,10 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -262,6 +262,7 @@
     <Compile Include="Mappings\WebAutomapperProfile.cs" />
     <Compile Include="Model\Account\LoginView.cs" />
     <Compile Include="Model\Account\RegisterView.cs" />
+    <Compile Include="Model\Admin\ChangeRole.cs" />
     <Compile Include="Model\Base\BaseView.cs" />
     <Compile Include="Model\Gallery\GalleryCreate.cs" />
     <Compile Include="Model\Gallery\GalleryCreatePhoto.cs" />
@@ -298,6 +299,7 @@
     <Content Include="Views\Photo\Open.cshtml" />
     <Content Include="Views\Gallery\Edit.cshtml" />
     <Content Include="Views\Gallery\DeletePhoto.cshtml" />
+    <Content Include="Views\Admin\ChangeRole.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
