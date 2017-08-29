@@ -269,6 +269,8 @@
     <Compile Include="Model\Gallery\GalleryIndex.cs" />
     <Compile Include="Model\Gallery\GalleryView.cs" />
     <Compile Include="Model\Gallery\PhotoCheck.cs" />
+    <Compile Include="Model\Home\IndexView.cs" />
+    <Compile Include="Model\Photo\PhotoUpload.cs" />
     <Compile Include="Model\Photo\PhotoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

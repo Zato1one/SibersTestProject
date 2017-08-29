@@ -7,12 +7,12 @@ using System.Web;
 
 namespace SibersTestProject.Model.Admin
 {
-    public class ChangeRole
+    public class ChangeRoleView
     {
         [ScaffoldColumn(false)]
-        public Guid userId { get; set; }
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         public IList<string> CurentRole { get; set; }
         public RoleNameEnume RoleName { get; set; }
-    }
+    }  
 }

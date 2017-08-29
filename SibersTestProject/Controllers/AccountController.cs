@@ -51,7 +51,6 @@ namespace SibersTestProject.Controllers
             }
             return View(registerView);
         }
-
         public ActionResult Login(string returnUrl)
         {
             var login = new LoginView();
@@ -66,7 +65,7 @@ namespace SibersTestProject.Controllers
                 var user = await UserManager.FindAsync(model.Name, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Некорректное имя или пароль.");
+                    ModelState.AddModelError("", "Incorrect username or password");
                 }
                 else
                 {
@@ -80,13 +79,11 @@ namespace SibersTestProject.Controllers
             }
             return View(model);
         }
-
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
         private async Task SignIn(ProjectUser userModel)
         {
             var ident = await UserManager.CreateIdentityAsync(userModel, DefaultAuthenticationTypes.ApplicationCookie);

@@ -3,7 +3,6 @@
     ViewBag.Title = "Register";
 }
 <h2>Register</h2>
-<h3 style="color:red;">@ViewBag.Exception</h3>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -55,7 +54,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зарегистрировать" class="btn btn-default" />
+                <input type="submit" value="SignUp" class="btn btn-default" />
             </div>
         </div>
     </div>

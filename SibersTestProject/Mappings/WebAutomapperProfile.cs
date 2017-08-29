@@ -9,6 +9,8 @@ using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Model;
 using SibersTestProject.Model.Photo;
 using SibersTestProject.Model.Gallery;
+using SibersTestProject.Model.Admin;
+using SibersTestProject.Model.Home;
 
 namespace SibersTestProject.Mappings
 {
@@ -21,8 +23,20 @@ namespace SibersTestProject.Mappings
             //Account
             CreateMap<RegisterView, ProjectUser>(MemberList.Source);
 
+            //Admin
+            CreateMap<ProjectUser, ChangeRoleView>(MemberList.Source);
+
+            //Home
+            CreateMap<ProjectUser, UserView>(MemberList.Source);
+
             //Photo
             CreateMap<PhotoModel, PhotoView>(MemberList.Source);
+            CreateMap<PhotoUpload, PhotoModel>(MemberList.Source);
+
+
+
+
+
             CreateMap<PhotoView, PhotoModel>(MemberList.Source);
 
             //Gallery

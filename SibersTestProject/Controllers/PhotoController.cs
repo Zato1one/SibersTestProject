@@ -22,7 +22,7 @@ namespace SibersTestProject.Controllers
         public PhotoController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
-        // GET: Photo
+
         public ActionResult Index()
         {
             var userId = AuthenticationManager.User.Identity.GetUserId();
@@ -36,7 +36,7 @@ namespace SibersTestProject.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Upload(PhotoView photoView, HttpPostedFileBase file)
+        public ActionResult Upload(PhotoUpload photoView, HttpPostedFileBase file)
         {
             try
             {
@@ -48,8 +48,6 @@ namespace SibersTestProject.Controllers
                     ServicesHost.GetService<IPhotoService>().SavePhoto(photoModel);
                     ServicesHost.GetService<IImageService>().SaveImage(photoModel.EntityId,arrayImage);
                     ViewBag.StateUpload = "Success upload";
-
-
                 }
                 return View();
             }
@@ -102,7 +100,6 @@ namespace SibersTestProject.Controllers
             ServicesHost.GetService<IPhotoService>().Edit(photoModel);
             if(file!=null)
             {
-                //change image 
                 ServicesHost.GetService<IImageService>().EditImage(photoModel.EntityId, file);
             }
             return RedirectToAction("Index");

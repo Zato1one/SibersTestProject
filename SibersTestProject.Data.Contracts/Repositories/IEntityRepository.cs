@@ -11,7 +11,7 @@ namespace SibersTestProject.Data.Contracts.Repositories
     public interface IEntityRepository<T> : IEntityRepository
     {
         IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate);
-        IQueryable<T> Include(Expression<Func<T, object>> predicate);
+        //IQueryable<T> Include(Expression<Func<T, object>> predicate);
         IQueryable<T> GetAll();
         T GetById(object id);
         void Insert(T entity);

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SibersTestProject.Common.Model.UserModel>
+﻿@model IEnumerable<SibersTestProject.Model.Home.UserView>
 @{
     ViewBag.Title = "UserList";
 }
@@ -26,13 +26,13 @@
             <td>@user.LastName</td>
             <td>@user.Email</td>
             <td>
-                @foreach (var role in user.Roles)
+                @foreach (var role in user.CurentRole)
             {
                 @role <br>
             }
         </td>
             <td>
-                @Html.RouteLink("ChangeRole", new { controller = "Admin", action = "ChangeRole", id = user.EntityId })
+                @Html.RouteLink("ChangeRole", new { controller = "Admin", action = "ChangeRole", id = user.Id })
             </td>
     </tr>
     }

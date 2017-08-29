@@ -1,4 +1,5 @@
-﻿using SibersTestProject.Common.Enums;
+﻿using AutoMapper;
+using SibersTestProject.Common.Enums;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Model.Admin;
 using System;
@@ -16,24 +17,22 @@ namespace SibersTestProject.Controllers
         public AdminController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
-        // GET: Admin
+
         public async Task<ActionResult> ChangeRole(Guid id)
         {
             var user = await UserManager.FindByIdAsync(id);
-            var viewModel = new ChangeRole()
-            {
-                userId = id,
-                UserName = user.UserName,
-                CurentRole = await UserManager.GetRolesAsync(id)
-            };
-            return View(viewModel);
+            var chageRoleView = Mapper.Map<ChangeRoleView>(user);
+            chageRoleView.CurentRole = await UserManager.GetRolesAsync(id);
+
+            return View(chageRoleView);
         }
         [HttpPost]
-        public async Task<ActionResult> ChangeRole(ChangeRole viewModel)
+        public async Task<ActionResult> ChangeRole(ChangeRoleView viewModel)
         {
-            await UserManager.RemoveFromRolesAsync(viewModel.userId, viewModel.CurentRole.ToArray());
-            await UserManager.AddToRoleAsync(viewModel.userId, viewModel.RoleName.ToString());
-            return RedirectToAction("Index","Home");
+            await UserManager.RemoveFromRolesAsync(viewModel.Id, viewModel.CurentRole.ToArray());
+            await UserManager.AddToRoleAsync(viewModel.Id, viewModel.RoleName.ToString());
+
+            return RedirectToAction("Index", "Home");
         }
 
 

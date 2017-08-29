@@ -12,8 +12,9 @@ namespace SibersTestProject.Controllers
         protected readonly IServicesHost ServicesHost;
         public BaseController(IServicesHost servicesHost)
         {
-            this.ServicesHost = servicesHost;
+            ServicesHost = servicesHost;
         }
+
         protected ProjectUserManager UserManager
         {
             get
@@ -21,7 +22,6 @@ namespace SibersTestProject.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<ProjectUserManager>();
             }
         }
-
         protected ProjectRoleManager RoleManager
         {
             get

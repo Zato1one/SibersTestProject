@@ -1,4 +1,4 @@
-﻿@model SibersTestProject.Model.Admin.ChangeRole
+﻿@model SibersTestProject.Model.Admin.ChangeRoleView
 @{
     ViewBag.Title = "ChangeRole";
 }
@@ -8,7 +8,7 @@
 
     @using (Html.BeginForm())
     {
-        @Html.HiddenFor(a => a.userId)
+        @Html.HiddenFor(a => a.Id)
         <div class="form-group">
             @Html.LabelFor(m => m.UserName)
             @Html.DisplayFor(m => m.UserName)
