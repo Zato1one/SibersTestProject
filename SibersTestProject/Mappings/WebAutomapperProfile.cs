@@ -32,23 +32,17 @@ namespace SibersTestProject.Mappings
             //Photo
             CreateMap<PhotoModel, PhotoView>(MemberList.Source);
             CreateMap<PhotoUpload, PhotoModel>(MemberList.Source);
-
-
-
-
-
             CreateMap<PhotoView, PhotoModel>(MemberList.Source);
 
             //Gallery
             CreateMap<GalleryModelWithoutImage, GalleryIndex>(MemberList.Source);
             CreateMap<GalleryCreate, GalleryModelWithoutImage>(MemberList.Source);
-            CreateMap<GalleryModel, GalleryView>(MemberList.Source);
+            CreateMap<GalleryModelWithoutImage, GalleryCreatePhoto>(MemberList.Source);
             CreateMap<PhotoModel, PhotoCheck>(MemberList.Source);
-            CreateMap<PhotoCheck, PhotoView>(MemberList.Source);
+            CreateMap<GalleryModel, GalleryView>(MemberList.Source);
+            CreateMap<GalleryModelWithoutImage, GalleryCreate>(MemberList.Source);
             CreateMap<GalleryModel, GalleryCreatePhoto>(MemberList.Source);
-            CreateMap<GalleryCreatePhoto, GalleryModel>(MemberList.Source);
-            CreateMap<GalleryCreate,GalleryModel>(MemberList.Source);
-            CreateMap<GalleryModel, GalleryCreate>(MemberList.Source);
+
         }
     }
 }

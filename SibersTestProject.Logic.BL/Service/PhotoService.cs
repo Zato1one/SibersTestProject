@@ -26,50 +26,31 @@ namespace SibersTestProject.Logic.BL.Service
         public void Delete(Guid modelId)
         {
             UnitOfWork.GetRepository<Photo>().Delete(modelId);
+            UnitOfWork.GetRepository<Image>().Delete(modelId);
             UnitOfWork.SaveChanges();
         }
-
-        public void Delete(PhotoModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PhotoModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public PhotoModel GetById(Guid id)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(id);
             return Mapper.Map<PhotoModel>(dbPhoto);
         }
-
-        public void Save(PhotoModel model)
+        public void SavePhoto(PhotoModel photoModel)
         {
-            var store = this.UnitOfWork.GetRepository<Photo>().GetById(model.EntityId);
+            var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(photoModel.EntityId);
 
-            if (store == null)
+            if (dbPhoto == null)
             {
-                store = AutoMapper.Mapper.Map<Photo>(model);
-                this.UnitOfWork.GetRepository<Photo>().Insert(store);
+                dbPhoto = Mapper.Map<Photo>(photoModel);
+                UnitOfWork.GetRepository<Photo>().Insert(dbPhoto);
             }
             else
             {
-                AutoMapper.Mapper.Map(model, store);
-                this.UnitOfWork.GetRepository<Photo>().Update(store);
+                Mapper.Map(photoModel, dbPhoto);
+                UnitOfWork.GetRepository<Photo>().Update(dbPhoto);
             }
 
-            this.UnitOfWork.SaveChanges();
-        }
-
-        public void SavePhoto(PhotoModel photoModel)
-        {
-            var dbPhoto = Mapper.Map<Photo>(photoModel);
-            UnitOfWork.GetRepository<Photo>().Insert(dbPhoto);
             UnitOfWork.SaveChanges();
         }
-
         public ICollection<PhotoModel> GetAllUserPhoto(Guid userId)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>()
@@ -80,23 +61,11 @@ namespace SibersTestProject.Logic.BL.Service
         public void Edit(PhotoModel photoModel)
         {
             var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(photoModel.EntityId);
-            dbPhoto.Name = photoModel.Name;
-            dbPhoto.Description = photoModel.Description;
+            if (dbPhoto == null) throw new NullReferenceException();
+            Mapper.Map(photoModel, dbPhoto);
 
             UnitOfWork.GetRepository<Photo>().Update(dbPhoto);
             UnitOfWork.SaveChanges();
-        }
-        public ICollection<PhotoModel> GetPhotoByGalleryId(Guid galleryId)
-        {
-            var dbPhoto = UnitOfWork.GetRepository<Photo>()
-                 .GetAll().Select(b => b.EntityId).Where(a => a == galleryId).ToList();
-            var collection = new List<Photo>();
-            foreach (var item in dbPhoto)
-            {
-                collection.Add(UnitOfWork.GetRepository<Photo>().GetById(item));
-            }
-
-            return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(collection);
         }
     }
 }

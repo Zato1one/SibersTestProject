@@ -27,13 +27,13 @@ namespace SibersTestProject.Logic.BL.Service
             switch (imageResolution)
             {
                 case PhotoResolution.Small:
-                    return UnitOfWork.GetRepository<Image>().GetById(id).SmallImage;
+                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.SmallImage).FirstOrDefault();
                 case PhotoResolution.Medium:
-                    return UnitOfWork.GetRepository<Image>().GetById(id).MediumImage;
+                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.MediumImage).FirstOrDefault();
                 case PhotoResolution.Original:
-                    return UnitOfWork.GetRepository<Image>().GetById(id).OriginalImage;
+                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.OriginalImage).FirstOrDefault();
                 default:
-                    throw new Exception();
+                    return null;
             }
         }
 
@@ -71,6 +71,12 @@ namespace SibersTestProject.Logic.BL.Service
             UnitOfWork.SaveChanges();
         }
 
+        public void DeleteImage(Guid id)
+        {
+            UnitOfWork.GetRepository<Image>().Delete(id);
+            UnitOfWork.SaveChanges();
+        }
+
         private Image SaveImageLogic(Image image, byte[] arrayImage)
         {
             var smallImageInstructions = new Instructions()
@@ -99,7 +105,7 @@ namespace SibersTestProject.Logic.BL.Service
             return image;
         }
 
-        public void EditImage(Guid id,HttpPostedFileBase file)
+        public void EditImage(Guid id, HttpPostedFileBase file)
         {
             var arrayImage = FileBaseToArray(file);
             var image = UnitOfWork.GetRepository<Image>().GetById(id);

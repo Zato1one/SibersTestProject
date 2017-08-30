@@ -86,7 +86,7 @@ namespace SibersTestProject.Controllers
                 return HttpNotFound();
             }
             return File(image, contentType, Guid.NewGuid().ToString() + ".jpg");
-    }
+        }
         public ActionResult Edit(Guid id)
         {
             var photo = ServicesHost.GetService<IPhotoService>().GetById(id);
@@ -97,6 +97,7 @@ namespace SibersTestProject.Controllers
         public ActionResult Edit(PhotoView photoView, HttpPostedFileBase file)
         {
             var photoModel = Mapper.Map<PhotoModel>(photoView);
+            photoModel.UserId = User.Identity.GetUserId();
             ServicesHost.GetService<IPhotoService>().Edit(photoModel);
             if(file!=null)
             {

@@ -14,5 +14,6 @@ namespace SibersTestProject.Data.Contracts
         IEntityRepository<T> GetRepository<T>();
         void RegisterEntityRepository<T>(T customRepository) where T : IEntityRepository;
         void SaveChanges();
+
     }
 }

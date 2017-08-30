@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace SibersTestProject.Logic.Contracts.Service
 {
-    public interface IGalleryService : ICrudService<GalleryModel>
+    public interface IGalleryService : IService
     {
         ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId);
         void Create(GalleryModelWithoutImage galleryModel);
-        GalleryModel GetGalleryById(Guid galleryId);
+        GalleryModelWithoutImage GetGalleryById(Guid galleryId);
+        GalleryModel GetGalleryByIdWithPhotos(Guid galleryId);
         void CreatePhoto(Guid idGallery, ICollection<Guid> idPhotos);
         ICollection<GalleryModelWithoutImage> GetAllPublicGallery();
         void DeletePhoto(Guid idGallery, ICollection<Guid> idPhotos);
-        void Edit(GalleryModel galleryModel);
+        void Edit(GalleryModelWithoutImage galleryModel);
+        void Delete(Guid galleryId);
     }
 }

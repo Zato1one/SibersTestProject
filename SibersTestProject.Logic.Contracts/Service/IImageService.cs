@@ -15,5 +15,6 @@ namespace SibersTestProject.Logic.Contracts.Service
         void SaveImage(Guid id,byte[] arrayImage);
         byte[] GetImageById(Guid id, PhotoResolution imageResolution);
         void EditImage(Guid id, HttpPostedFileBase file);
+        void DeleteImage(Guid id);
     }
 }

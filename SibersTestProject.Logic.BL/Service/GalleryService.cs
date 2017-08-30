@@ -23,41 +23,6 @@ namespace SibersTestProject.Logic.BL.Service
             UnitOfWork.GetRepository<Gallery>().Delete(modelId);
             UnitOfWork.SaveChanges();
         }
-
-        public void Delete(GalleryModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<GalleryModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public GalleryModel GetById(Guid id)
-        {
-            var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.EntityId == id).First();
-            return Mapper.Map<GalleryModel>(dbGallery);
-
-        }
-
-        public void Save(GalleryModel model)
-        {
-            var store = UnitOfWork.GetRepository<Gallery>().GetById(model.EntityId);
-
-            if (store == null)
-            {
-                store = Mapper.Map<Gallery>(model);
-                UnitOfWork.GetRepository<Gallery>().Insert(store);
-            }
-            else
-            {
-                Mapper.Map(model, store);
-                UnitOfWork.GetRepository<Gallery>().Update(store);
-            }
-
-            UnitOfWork.SaveChanges();
-        }
         public ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId)
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>()
@@ -65,11 +30,17 @@ namespace SibersTestProject.Logic.BL.Service
 
             return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
         }
-        public GalleryModel GetGalleryById(Guid galleryId)
+        public GalleryModelWithoutImage GetGalleryById(Guid galleryId)
         {
-            //var dbGallery = UnitOfWork.GetRepository<Gallery>().Include(a=>a.Photos).Where(a=>a.EntityId==galleryId).First();
             var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
 
+            return Mapper.Map<GalleryModelWithoutImage>(dbGallery);
+        }
+        public GalleryModel GetGalleryByIdWithPhotos(Guid galleryId)
+        {
+            var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
+            if (dbGallery.Photos == null) dbGallery.Photos = new List<Photo>();
+            dbGallery.Photos = dbGallery.Photos.Where(a => !a.IsArchive).ToList();
             return Mapper.Map<GalleryModel>(dbGallery);
         }
         public void Create(GalleryModelWithoutImage galleryModel)
@@ -81,31 +52,23 @@ namespace SibersTestProject.Logic.BL.Service
         public void CreatePhoto(Guid idGallery, ICollection<Guid> idPhotos)
         {
             var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
-            if (gallery == null) throw new NullReferenceException();
-            var photos = new List<Photo>();
             foreach (var idPhoto in idPhotos)
             {
                 var photo = UnitOfWork.GetRepository<Photo>().GetById(idPhoto);
-                photos.Add(photo);
+                gallery.Photos.Add(photo);
             }
-            if (gallery.Photos == null) gallery.Photos = photos;
-            else gallery.Photos = gallery.Photos.Concat(photos).ToList();
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
             UnitOfWork.SaveChanges();
         }
         public ICollection<GalleryModelWithoutImage> GetAllPublicGallery()
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.IsPublic).ToList();
-
             return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
         }
-
-        public void Edit(GalleryModel galleryModel)
+        public void Edit(GalleryModelWithoutImage galleryModel)
         {
             var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryModel.EntityId);
-            dbGallery.Name = galleryModel.Name;
-            dbGallery.Description = galleryModel.Description;
-            dbGallery.IsPublic = galleryModel.IsPublic;
+            Mapper.Map(galleryModel, dbGallery);
 
             UnitOfWork.GetRepository<Gallery>().Update(dbGallery);
             UnitOfWork.SaveChanges();
@@ -113,7 +76,6 @@ namespace SibersTestProject.Logic.BL.Service
         public void DeletePhoto(Guid idGallery, ICollection<Guid> idPhotos)
         {
             var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
-            if (gallery == null) throw new NullReferenceException();
             foreach (var idPhoto in idPhotos)
             {
                 var photo = UnitOfWork.GetRepository<Photo>().GetById(idPhoto);

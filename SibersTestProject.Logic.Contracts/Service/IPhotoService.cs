@@ -9,11 +9,12 @@ using System.Web;
 
 namespace SibersTestProject.Logic.Contracts.Service
 {
-    public interface IPhotoService : ICrudService<PhotoModel>
+    public interface IPhotoService : IService
     {
         ICollection<PhotoModel> GetAllUserPhoto(Guid userId);
         void SavePhoto(PhotoModel photoModel);
         void Edit(PhotoModel photoModel);
-        ICollection<PhotoModel> GetPhotoByGalleryId(Guid userId);
+        void Delete(Guid modelId);
+        PhotoModel GetById(Guid id);
     }
 }

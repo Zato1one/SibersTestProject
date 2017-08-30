@@ -14,7 +14,5 @@ namespace SibersTestProject.Common.Model.Base
         }
         public Guid EntityId { get; set; }
         public bool IsArchive { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 }

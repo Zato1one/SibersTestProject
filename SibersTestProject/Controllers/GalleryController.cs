@@ -60,25 +60,20 @@ namespace SibersTestProject.Controllers
             var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
             var galleryView = Mapper.Map<GalleryCreatePhoto>(galleryModel);
             var userId = User.Identity.GetUserId();
-            var allGalleryPhotos = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
-            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allGalleryPhotos).ToList();
+            var allUserPhotos = ServicesHost.GetService<IPhotoService>().GetAllUserPhoto(userId);
+            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allUserPhotos).ToList();
             return View(galleryView);
         }
         [HttpPost]
         public ActionResult CreatePhoto(GalleryCreatePhoto galleryView)
         {
-            if(galleryView==null)
-            {
-                throw new NullReferenceException();
-            }
             var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).Select(a=>a.EntityId).ToList();
             ServicesHost.GetService<IGalleryService>().CreatePhoto(galleryView.EntityId, newPhotos);
             return RedirectToAction("Index");
         }
         public ActionResult ViewGallery(Guid id)
         {
-            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
-            galleryModel.Photos = galleryModel.Photos.Where(a => !a.IsArchive).ToList();
+            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryByIdWithPhotos(id);
             var galleryView = Mapper.Map<GalleryView>(galleryModel);
 
             return View(galleryView);
@@ -96,32 +91,31 @@ namespace SibersTestProject.Controllers
         }
         public ActionResult Edit(Guid id)
         {
-            var gallery = ServicesHost.GetService<IGalleryService>().GetById(id);
+            var gallery = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
             var galleryView = Mapper.Map<GalleryCreate>(gallery);
             return View(galleryView);
         }
         [HttpPost]
         public ActionResult Edit(GalleryCreate galleryView)
         {
-            var galleryModel = Mapper.Map<GalleryModel>(galleryView);
+            var galleryModel = Mapper.Map<GalleryModelWithoutImage>(galleryView);
+            galleryModel.UserId = User.Identity.GetUserId();
             ServicesHost.GetService<IGalleryService>().Edit(galleryModel);
             return RedirectToAction("Index");
         }
         public ActionResult DeletePhoto(Guid id)
         {
-            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryById(id);
-            galleryModel.Photos = galleryModel.Photos.Where(a => a.IsArchive == false).ToList();
+            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryByIdWithPhotos(id);
             var galleryView = Mapper.Map<GalleryCreatePhoto>(galleryModel);
             var userId = User.Identity.GetUserId();
-            var allGalleryPhotos = galleryModel.Photos;
-            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(allGalleryPhotos).ToList();
+            galleryView.PhotoCheck = Mapper.Map<ICollection<PhotoModel>, ICollection<PhotoCheck>>(galleryModel.Photos).ToList();
             return View(galleryView);
         }
         [HttpPost]
         public ActionResult DeletePhoto(GalleryCreatePhoto galleryView)
         {
-            var newPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).Select(a => a.EntityId).ToList();
-            ServicesHost.GetService<IGalleryService>().DeletePhoto(galleryView.EntityId, newPhotos);
+            var delPhotos = galleryView.PhotoCheck.Where(a => a.Check == true).Select(a => a.EntityId).ToList();
+            ServicesHost.GetService<IGalleryService>().DeletePhoto(galleryView.EntityId, delPhotos);
             return RedirectToAction("Index");
         }
     }

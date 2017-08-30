@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -41,7 +42,9 @@ namespace SibersTestProject.Controllers
             {
                 var photoResolution = (PhotoResolution)Enum.Parse(
                                               typeof(PhotoResolution), imageResolution, true);
+
                 var imgByteArr = ServicesHost.GetService<IImageService>().GetImageById(id, photoResolution);
+
                 var mimeType = "image/jpeg";
                 return new FileContentResult(imgByteArr, mimeType);
             }

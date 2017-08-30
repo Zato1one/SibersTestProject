@@ -16,6 +16,10 @@ namespace SibersTestProject.Data.DAL.Mappings
             this.ToTable("Images");
 
             this.HasKey(e => e.EntityId);
+
+            this.HasRequired(a => a.Photo)
+                .WithOptional(b => b.Image);
+
         }
     }
 }

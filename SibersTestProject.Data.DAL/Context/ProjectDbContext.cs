@@ -5,6 +5,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using SibersTestProject.Data.DAL.Mappings;
+using System.Diagnostics;
 
 namespace SibersTestProject.Data.DAL.Context
 {
@@ -14,6 +15,7 @@ namespace SibersTestProject.Data.DAL.Context
             : base("StringConnection")
         {
             System.Data.Entity.Database.SetInitializer(new ProjectDbContextConfiguration());
+            DbContext.Database.Log = (e) => Debug.WriteLine(e);
         }
         public DbContext DbContext
         {

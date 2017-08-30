@@ -58,7 +58,7 @@
     <Compile Include="Model\GalleryModel.cs" />
     <Compile Include="Model\GalleryModelWithoutImage.cs" />
     <Compile Include="Model\PhotoModel.cs" />
-    <Compile Include="Model\PhotoModelWithoutImage.cs" />
+    <Compile Include="Model\PhotoModelWithGallery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

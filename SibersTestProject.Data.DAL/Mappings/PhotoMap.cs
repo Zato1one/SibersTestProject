@@ -14,8 +14,6 @@ namespace SibersTestProject.Data.DAL.Mappings
                 .WithMany(studio => studio.Photos)
                 .HasForeignKey(entity => entity.UserId);
 
-            this.HasOptional(s => s.Image)
-                .WithRequired(ad => ad.Photo);
 
         }
     }

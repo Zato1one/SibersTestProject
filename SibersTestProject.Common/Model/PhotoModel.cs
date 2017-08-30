@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace SibersTestProject.Common.Model
 {
-    public class PhotoModel : PhotoModelWithoutImage
+    public class PhotoModel : BaseModel
     {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Guid UserId { get; set; }
     }
 }
