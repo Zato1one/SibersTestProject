@@ -270,6 +270,7 @@
     <Compile Include="Model\Gallery\GalleryView.cs" />
     <Compile Include="Model\Gallery\PhotoCheck.cs" />
     <Compile Include="Model\Home\IndexView.cs" />
+    <Compile Include="Model\PaginationView.cs" />
     <Compile Include="Model\Photo\PhotoUpload.cs" />
     <Compile Include="Model\Photo\PhotoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Gallery\Edit.cshtml" />
     <Content Include="Views\Gallery\DeletePhoto.cshtml" />
     <Content Include="Views\Admin\ChangeRole.cshtml" />
+    <Content Include="Views\Photo\Pagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

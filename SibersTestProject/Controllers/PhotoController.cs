@@ -105,5 +105,17 @@ namespace SibersTestProject.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Pagination(int page = 1)
+        {
+            if (page <= 0) page = 1;
+            int pageSize = 5;
+            int totalPage = 0;
+            int totalRecord = 0;
+            var userId = User.Identity.GetUserId();
+            var List = ServicesHost.GetService<IPhotoService>().Pagination(page, pageSize, out totalRecord, out totalPage, userId);
+            ViewBag.dbCount = totalPage;
+            return View(List);
+        }
     }
 }

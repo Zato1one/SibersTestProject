@@ -10,6 +10,7 @@ using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Data.Contracts;
 using SibersTestProject.Data.DAL.Entities;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace SibersTestProject.Logic.BL.Service
 {
@@ -25,23 +26,21 @@ namespace SibersTestProject.Logic.BL.Service
         }
         public ICollection<GalleryModelWithoutImage> GetAllGalleryByUserId(Guid userId)
         {
-            var dbGallery = UnitOfWork.GetRepository<Gallery>()
-                 .SearchFor(a => a.User.Id == userId).ToList();
-
-            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
+            var galleryModel = UnitOfWork.GetRepository<Gallery>()
+                 .SearchFor(a => a.User.Id == userId).ProjectTo<GalleryModelWithoutImage>().ToList();
+            return galleryModel;
         }
         public GalleryModelWithoutImage GetGalleryById(Guid galleryId)
         {
-            var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
-
-            return Mapper.Map<GalleryModelWithoutImage>(dbGallery);
+            var galleryModel = UnitOfWork.GetRepository<Gallery>().SearchFor(a=>a.EntityId==galleryId)
+                .ProjectTo<GalleryModelWithoutImage>().FirstOrDefault();
+            return galleryModel;
         }
         public GalleryModel GetGalleryByIdWithPhotos(Guid galleryId)
         {
-            var dbGallery = UnitOfWork.GetRepository<Gallery>().GetById(galleryId);
-            if (dbGallery.Photos == null) dbGallery.Photos = new List<Photo>();
-            dbGallery.Photos = dbGallery.Photos.Where(a => !a.IsArchive).ToList();
-            return Mapper.Map<GalleryModel>(dbGallery);
+            var galleryModel = UnitOfWork.GetRepository<Gallery>()
+                .SearchFor(a=>a.EntityId==galleryId).ProjectTo<GalleryModel>().FirstOrDefault();
+            return galleryModel;
         }
         public void Create(GalleryModelWithoutImage galleryModel)
         {

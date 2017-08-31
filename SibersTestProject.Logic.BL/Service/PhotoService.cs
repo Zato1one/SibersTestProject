@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using SibersTestProject.Common.Extensions;
 using SibersTestProject.Common.Model;
 using SibersTestProject.Data.Contracts;
 using SibersTestProject.Data.DAL.Entities;
-using SibersTestProject.Data.DAL.Identity.Entities;
 using SibersTestProject.Logic.BL.Service.Base;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Logic.Contracts.Service;
@@ -14,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper.QueryableExtensions;
 
 namespace SibersTestProject.Logic.BL.Service
 {
@@ -31,8 +30,9 @@ namespace SibersTestProject.Logic.BL.Service
         }
         public PhotoModel GetById(Guid id)
         {
-            var dbPhoto = UnitOfWork.GetRepository<Photo>().GetById(id);
-            return Mapper.Map<PhotoModel>(dbPhoto);
+            var photoModel = UnitOfWork.GetRepository<Photo>().SearchFor(a=>a.EntityId==id)
+                .ProjectTo<PhotoModel>().FirstOrDefault();
+            return photoModel;
         }
         public void SavePhoto(PhotoModel photoModel)
         {
@@ -53,10 +53,9 @@ namespace SibersTestProject.Logic.BL.Service
         }
         public ICollection<PhotoModel> GetAllUserPhoto(Guid userId)
         {
-            var dbPhoto = UnitOfWork.GetRepository<Photo>()
-                 .SearchFor(a => a.User.Id == userId).ToList();
-
-            return Mapper.Map<ICollection<Photo>, ICollection<PhotoModel>>(dbPhoto);
+            var photoModel = UnitOfWork.GetRepository<Photo>()
+                 .SearchFor(a => a.User.Id == userId).ProjectTo<PhotoModel>().ToList();
+            return photoModel;
         }
         public void Edit(PhotoModel photoModel)
         {
@@ -66,6 +65,17 @@ namespace SibersTestProject.Logic.BL.Service
 
             UnitOfWork.GetRepository<Photo>().Update(dbPhoto);
             UnitOfWork.SaveChanges();
+        }
+        public ICollection<PhotoModel>Pagination(int page, int pageSize, out int totalRecord, out int totalPage, Guid userId)
+        {
+            totalRecord = UnitOfWork.GetRepository<Photo>().SearchFor(a => a.UserId == userId).Count();
+            totalPage = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
+
+            var photoList = UnitOfWork.GetRepository<Photo>()
+                .SearchFor(a => a.UserId == userId).OrderBy(c=>c.EntityId)
+                .Skip(((page - 1) * pageSize)).Take(pageSize).ProjectTo<PhotoModel>().ToList();
+
+            return photoList;
         }
     }
 }

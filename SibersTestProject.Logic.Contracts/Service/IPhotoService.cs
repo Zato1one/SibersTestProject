@@ -16,5 +16,6 @@ namespace SibersTestProject.Logic.Contracts.Service
         void Edit(PhotoModel photoModel);
         void Delete(Guid modelId);
         PhotoModel GetById(Guid id);
+        ICollection<PhotoModel> Pagination(int page, int pageSize, out int totalRecord, out int totalPage, Guid userId);
     }
 }
