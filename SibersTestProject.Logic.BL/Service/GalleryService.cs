@@ -83,5 +83,6 @@ namespace SibersTestProject.Logic.BL.Service
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
             UnitOfWork.SaveChanges();
         }
+        
     }
 }

@@ -77,5 +77,10 @@ namespace SibersTestProject.Logic.BL.Service
 
             return photoList;
         }
+        public IQueryable<PhotoModel> GetAllPhotoByUserId(Guid userId)
+        {
+            return UnitOfWork.GetRepository<Photo>()
+                .SearchFor(a => a.UserId == userId).OrderBy(b=>b.EntityId).ProjectTo<PhotoModel>();
+        }
     }
 }

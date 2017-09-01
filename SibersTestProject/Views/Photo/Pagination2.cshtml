@@ -1,0 +1,46 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<SibersTestProject.Common.Model.PhotoModel>
+
+@{
+    ViewBag.Title = "Pagination2";
+}
+
+<h2>Pagination2</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Image")
+        </th>
+        <th>
+            @Html.Display("Name")
+        </th>
+        <th>
+            @Html.Display("Description")
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="/Home/Image/Small/@item.EntityId" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Open", "Open", new { id = item.EntityId }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.EntityId }) |
+                @Html.ActionLink("Save", "Save", new { id = item.EntityId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Pagination2", new { page = page }))

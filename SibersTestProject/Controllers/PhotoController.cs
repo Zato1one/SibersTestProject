@@ -13,6 +13,7 @@ using SibersTestProject.Model.Photo;
 using ImageResizer;
 using SibersTestProject.Data.DAL.Entities;
 using SibersTestProject.Common.Enums;
+using PagedList;
 
 namespace SibersTestProject.Controllers
 {
@@ -116,6 +117,16 @@ namespace SibersTestProject.Controllers
             var List = ServicesHost.GetService<IPhotoService>().Pagination(page, pageSize, out totalRecord, out totalPage, userId);
             ViewBag.dbCount = totalPage;
             return View(List);
+        }
+        public ActionResult Pagination2(int page = 1)
+        {
+            if (page <= 0) page = 1;
+            var maxPhotos = 5;
+            var userId = User.Identity.GetUserId();
+            var photos = ServicesHost.GetService<IPhotoService>().GetAllPhotoByUserId(userId);
+            var onePageOfPhotos = photos.ToPagedList(page, maxPhotos);
+
+            return View(onePageOfPhotos);
         }
     }
 }
