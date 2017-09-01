@@ -118,12 +118,5 @@ namespace SibersTestProject.Controllers
             ServicesHost.GetService<IGalleryService>().DeletePhoto(galleryView.EntityId, delPhotos);
             return RedirectToAction("Index");
         }
-        public ActionResult ViewPublicGallery(Guid id)
-        {
-            var galleryModel = ServicesHost.GetService<IGalleryService>().GetGalleryByIdWithPhotos(id);
-            var galleryView = Mapper.Map<GalleryView>(galleryModel);
-
-            return View(galleryView);
-        }
     }
 }
