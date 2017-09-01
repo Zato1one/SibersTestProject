@@ -18,22 +18,27 @@ namespace SibersTestProject.Logic.BL.Service
 {
     public class ImageService : HostService<IImageService>, IImageService
     {
+        private object lockObject = new object();
+
         public ImageService(IServicesHost servicesHost, IUnitOfWork unitOfWork)
             : base(servicesHost, unitOfWork) {
         }
 
         public byte[] GetImageById(Guid id, PhotoResolution imageResolution)
         {
-            switch (imageResolution)
+            lock (lockObject)
             {
-                case PhotoResolution.Small:
-                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.SmallImage).FirstOrDefault();
-                case PhotoResolution.Medium:
-                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.MediumImage).FirstOrDefault();
-                case PhotoResolution.Original:
-                    return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.OriginalImage).FirstOrDefault();
-                default:
-                    return null;
+                switch (imageResolution)
+                {
+                    case PhotoResolution.Small:
+                        return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.SmallImage).FirstOrDefault();
+                    case PhotoResolution.Medium:
+                        return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.MediumImage).FirstOrDefault();
+                    case PhotoResolution.Original:
+                        return UnitOfWork.GetRepository<Image>().SearchFor(a => a.EntityId == id).Select(c => c.OriginalImage).FirstOrDefault();
+                    default:
+                        return null;
+                }
             }
         }
 
