@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using ImageResizer.Plugins.DiskCache;
 using ImageResizer.Plugins.PrettyGifs;
+using SibersTestProject.Data.DAL.Context;
 using SibersTestProject.Logic.BL.Mappings;
 using SibersTestProject.Mappings;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +16,9 @@ namespace SibersTestProject
     {
         public static void Init()
         {
+            // DB context init
+            Database.SetInitializer(new ProjectDbContextInitializer());
+
             //AutoMapper profile 
             Mapper.Initialize(config => {
                 config.AddProfile<BllAutomapperProfile>();

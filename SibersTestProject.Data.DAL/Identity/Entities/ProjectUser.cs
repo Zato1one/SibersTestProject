@@ -29,6 +29,7 @@ namespace SibersTestProject.Data.DAL.Identity.Entities
         public string LastName { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Commentary> Commentaries { get; set; }
         public virtual ICollection<Gallery> Galleries { get; set; }
 
     }

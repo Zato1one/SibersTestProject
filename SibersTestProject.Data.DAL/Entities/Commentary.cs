@@ -3,20 +3,19 @@ using SibersTestProject.Data.DAL.Identity.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SibersTestProject.Data.DAL.Entities
 {
-    public class Photo : BaseEntity
+    public class Commentary : BaseEntity
     {
         [Required]
-        public string Name { get; set; }
-        [MaxLength(200)]
-        public string Description { get; set; }
+        public string Comment{ get; set; }
+        public Guid PhotoId { get; set; }
+        public virtual Photo Photo { get; set; }
         public Guid UserId { get; set; }
         public virtual ProjectUser User { get; set; }
-        public virtual ICollection<Gallery> Galleries { get; set; }
-        public virtual Image Image { get; set; }
-        public virtual ICollection<Commentary> Commentaries { get; set; } 
-  
     }
 }

@@ -11,12 +11,12 @@ using System.Reflection;
 
 namespace SibersTestProject.Data.DAL.Context
 {
-    public sealed class ProjectDbContextConfiguration : DropCreateDatabaseIfModelChanges<ProjectDbContext>
+    public sealed class ProjectDbContextConfiguration : DbMigrationsConfiguration<ProjectDbContext>
     {
-        //public ProjectDbContextConfiguration()
-        //{
-        //    AutomaticMigrationsEnabled = false;
-        //}
+        public ProjectDbContextConfiguration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
 
         protected override void Seed(ProjectDbContext context)
         {

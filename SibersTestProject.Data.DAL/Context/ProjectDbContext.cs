@@ -14,8 +14,8 @@ namespace SibersTestProject.Data.DAL.Context
         public ProjectDbContext()
             : base("StringConnection")
         {
-            System.Data.Entity.Database.SetInitializer(new ProjectDbContextConfiguration());
-            DbContext.Database.Log = (e) => Debug.WriteLine(e);
+            //System.Data.Entity.Database.SetInitializer(new ProjectDbContextConfiguration());
+            //DbContext.Database.Log = (e) => Debug.WriteLine(e);
         }
         public DbContext DbContext
         {
@@ -40,6 +40,7 @@ namespace SibersTestProject.Data.DAL.Context
             modelBuilder.Configurations.Add(new ImageMap());
             modelBuilder.Configurations.Add(new PhotoMap());
             modelBuilder.Configurations.Add(new GalleryMap());
+            modelBuilder.Configurations.Add(new CommentaryMap());
 
             // Conventions
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

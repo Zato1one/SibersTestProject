@@ -59,7 +59,9 @@
   <ItemGroup>
     <Compile Include="Context\ProjectDbContext.cs" />
     <Compile Include="Context\ProjectDbContextConfiguration.cs" />
+    <Compile Include="Context\ProjectDbContextInitializer.cs" />
     <Compile Include="Entities\Base\BaseEntity.cs" />
+    <Compile Include="Entities\Commentary.cs" />
     <Compile Include="Entities\Gallery .cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Photo.cs" />
@@ -71,9 +73,15 @@
     <Compile Include="Identity\Store\ProjectRoleStore.cs" />
     <Compile Include="Identity\Store\ProjectUserStore.cs" />
     <Compile Include="Mappings\Base\BaseEntityMap.cs" />
+    <Compile Include="Mappings\CommentaryMap.cs" />
     <Compile Include="Mappings\GalleryMap.cs" />
     <Compile Include="Mappings\ImageMap.cs" />
     <Compile Include="Mappings\PhotoMap.cs" />
+    <Compile Include="Migrations\201708250556330_InitialCreate.cs" />
+    <Compile Include="Migrations\201708250556330_InitialCreate.Designer.cs">
+      <DependentUpon>201708250556330_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -88,7 +96,11 @@
       <Name>SibersTestProject.Data.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708250556330_InitialCreate.resx">
+      <DependentUpon>201708250556330_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
