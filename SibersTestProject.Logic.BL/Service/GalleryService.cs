@@ -51,6 +51,7 @@ namespace SibersTestProject.Logic.BL.Service
         public void CreatePhoto(Guid idGallery, ICollection<Guid> idPhotos)
         {
             var gallery = UnitOfWork.GetRepository<Gallery>().GetById(idGallery);
+            if (gallery.Photos == null) gallery.Photos = new List<Photo>();
             foreach (var idPhoto in idPhotos)
             {
                 var photo = UnitOfWork.GetRepository<Photo>().GetById(idPhoto);

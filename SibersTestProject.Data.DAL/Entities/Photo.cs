@@ -16,7 +16,7 @@ namespace SibersTestProject.Data.DAL.Entities
         public virtual ProjectUser User { get; set; }
         public virtual ICollection<Gallery> Galleries { get; set; }
         public virtual Image Image { get; set; }
-        public virtual ICollection<Commentary> Commentaries { get; set; } 
-  
+        public virtual ICollection<Commentary> Commentaries { get; set; }
+
     }
 }

@@ -12,7 +12,7 @@ namespace SibersTestProject.Data.DAL.Entities
     public class Commentary : BaseEntity
     {
         [Required]
-        public string Comment{ get; set; }
+        public string Comment { get; set; }
         public Guid PhotoId { get; set; }
         public virtual Photo Photo { get; set; }
         public Guid UserId { get; set; }
