@@ -28,6 +28,12 @@ namespace SibersTestProject.Logic.BL.Mappings
             CreateMap<GalleryModelWithoutImage, Gallery>(MemberList.Source);
             CreateMap<Gallery, GalleryModel>(MemberList.Source);
 
+            //Commentary
+            CreateMap<Commentary, CommentaryModel>(MemberList.Source)
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
+            CreateMap<CommentaryModel, Commentary>(MemberList.Source);
+
+
 
 
             CreateMap<GalleryModel, Gallery>(MemberList.Source);

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using SibersTestProject.Data.DAL.Mappings;
 using System.Diagnostics;
+using System.Data.Entity.Migrations;
 
 namespace SibersTestProject.Data.DAL.Context
 {
@@ -45,6 +46,7 @@ namespace SibersTestProject.Data.DAL.Context
             // Conventions
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
         protected override void Dispose(bool disposing)

@@ -22,6 +22,12 @@
             <td>
                 <img src="/Home/Image/Small/@item.EntityId" />
             </td>
+            <td>
+                @Html.ActionLink("CreateComment", "CreateCommentary", "Commentary" , new { photoId = item.EntityId }, null)
+            </td>
+            <td>
+                @Html.ActionLink("OpenComment", "ListCommentary", "Commentary", new { photoId = item.EntityId }, null)
+            </td>
         </tr>
     }
 </table>

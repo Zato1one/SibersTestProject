@@ -253,6 +253,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentaryController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -304,6 +305,8 @@
     <Content Include="Views\Gallery\DeletePhoto.cshtml" />
     <Content Include="Views\Admin\ChangeRole.cshtml" />
     <Content Include="Views\Photo\Pagination.cshtml" />
+    <Content Include="Views\Commentary\CreateCommentary.cshtml" />
+    <Content Include="Views\Commentary\ListCommentary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

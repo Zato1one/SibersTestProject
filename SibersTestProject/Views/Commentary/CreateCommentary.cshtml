@@ -1,0 +1,23 @@
+﻿@model SibersTestProject.Common.Model.CommentaryModel
+
+@{
+    ViewBag.Title = "CreateCommentary";
+}
+
+<h2>CreateCommentary</h2>
+
+
+@using (Html.BeginForm("CreateCommentary", "Commentary", FormMethod.Post))
+{
+
+    @Html.HiddenFor(a => a.UserId)
+    @Html.HiddenFor(a => a.PhotoId)
+    @Html.HiddenFor(a => a.EntityId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Comment)
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Comment)
+        </div>
+    </div>
+        <input type="submit" value="CreateCommetary" />
+}

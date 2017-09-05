@@ -110,6 +110,7 @@
     <Compile Include="ServicesHost.cs" />
     <Compile Include="Service\Base\EntityService.cs" />
     <Compile Include="Service\Base\HostService.cs" />
+    <Compile Include="Service\CommentaryService.cs" />
     <Compile Include="Service\GalleryService.cs" />
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\PhotoService.cs" />
