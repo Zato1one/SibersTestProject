@@ -307,6 +307,7 @@
     <Content Include="Views\Photo\Pagination.cshtml" />
     <Content Include="Views\Commentary\CreateCommentary.cshtml" />
     <Content Include="Views\Commentary\ListCommentary.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
