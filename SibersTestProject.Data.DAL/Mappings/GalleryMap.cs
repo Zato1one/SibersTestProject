@@ -16,7 +16,11 @@ namespace SibersTestProject.Data.DAL.Mappings
             this.ToTable("Galleries");
 
             this.HasMany(a => a.Photos)
-                .WithMany(b => b.Galleries);
+                .WithMany(b => b.Galleries)
+                .Map(cs =>
+                {
+                    cs.ToTable("GalleryPhotos");
+                });
 
             this.HasRequired(entity => entity.User)
                 .WithMany(studio => studio.Galleries)
