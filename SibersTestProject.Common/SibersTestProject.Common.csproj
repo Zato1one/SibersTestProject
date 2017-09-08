@@ -58,6 +58,7 @@
     <Compile Include="Model\CommentaryModel.cs" />
     <Compile Include="Model\GalleryModel.cs" />
     <Compile Include="Model\GalleryModelWithoutImage.cs" />
+    <Compile Include="Model\GalleryModelWithUserName.cs" />
     <Compile Include="Model\PhotoModel.cs" />
     <Compile Include="Model\PhotoModelWithGallery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

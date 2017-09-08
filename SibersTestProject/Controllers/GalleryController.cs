@@ -86,8 +86,7 @@ namespace SibersTestProject.Controllers
         public ActionResult AllPublicGallery()
         {
             var galleryModelList = ServicesHost.GetService<IGalleryService>().GetAllPublicGallery();
-            var galleryViewList = Mapper.Map<ICollection<GalleryModelWithoutImage>, ICollection<GalleryIndex>>(galleryModelList);
-            return View(galleryViewList);
+            return View(galleryModelList);
         }
         public ActionResult Edit(Guid id)
         {

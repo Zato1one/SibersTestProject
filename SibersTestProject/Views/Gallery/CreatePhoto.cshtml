@@ -2,26 +2,38 @@
 @{
     ViewBag.Title = "PhotoList";
 }
-<h2>PhotoList</h2>
-<hr>
-@Html.DisplayFor(x=>x.Name)
-<hr>
-@using (Html.BeginForm("CreatePhoto", "Gallery", FormMethod.Post))
-{
-    @Html.HiddenFor(a => a.EntityId)
-    @*@Html.EditorFor(a=>a.PhotoCheck)*@
-@*foreach (var item in Model.PhotoCheck)
-{
-    @Html.HiddenFor(x => item.EntityId)
-    @Html.DisplayFor(x => item.Image)
-    @Html.EditorFor(x => item.Check)
-}*@
-for (int i = 0; i < Model.PhotoCheck.Count; i++)
-{
-    @Html.HiddenFor(m => m.PhotoCheck[i].EntityId)
-    <img src="/Home/Image/Small/@Model.PhotoCheck[i].EntityId" />
-    @Html.EditorFor(m => m.PhotoCheck[i].Check)
-}
+<div class="container">
+    <h2>PhotoList</h2>
+    <hr>
+    @Html.DisplayFor(x => x.Name)
+    <hr>
+    @using (Html.BeginForm("CreatePhoto", "Gallery", FormMethod.Post))
+    {
+        @Html.HiddenFor(a => a.EntityId)
+        @*@Html.EditorFor(a=>a.PhotoCheck)*@
+        @*foreach (var item in Model.PhotoCheck)
+            {
+                @Html.HiddenFor(x => item.EntityId)
+                @Html.DisplayFor(x => item.Image)
+                @Html.EditorFor(x => item.Check)
+            }*@
+        <div class="row">
+            @for (int i = 0; i < Model.PhotoCheck.Count; i++)
+                {
+                @Html.HiddenFor(m => m.PhotoCheck[i].EntityId)
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="/Home/Image/Medium/@Model.PhotoCheck[i].EntityId" />
+                        <div class="caption">
+                            @Html.EditorFor(m => m.PhotoCheck[i].Check)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+            <div class="col-xs-offset-5 col-xs-12">
+                <button type="submit" class="btn btn-default">Add</button>
+            </div>
+    }
+</div>
 
-    <button type="submit">Add</button>
-}

@@ -60,10 +60,10 @@ namespace SibersTestProject.Logic.BL.Service
             UnitOfWork.GetRepository<Gallery>().Update(gallery);
             UnitOfWork.SaveChanges();
         }
-        public ICollection<GalleryModelWithoutImage> GetAllPublicGallery()
+        public ICollection<GalleryModelWithUserName> GetAllPublicGallery()
         {
-            var dbGallery = UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.IsPublic).ToList();
-            return Mapper.Map<ICollection<Gallery>, ICollection<GalleryModelWithoutImage>>(dbGallery);
+            return UnitOfWork.GetRepository<Gallery>().SearchFor(a => a.IsPublic)
+                .ProjectTo<GalleryModelWithUserName>().ToList();
         }
         public void Edit(GalleryModelWithoutImage galleryModel)
         {

@@ -2,51 +2,52 @@
 @{
     ViewBag.Title = "PhotoList";
 }
-
-<h2>PhotoList</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Image")
-        </th>
-        <th>
-            @Html.Display("Name")
-        </th>
-        <th>
-            @Html.Display("Description")
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
+<div class="container">
+    <h2>PhotoList</h2>
+    <table class="table">
         <tr>
-            <td>
-                <div style="height:100px; width:100px;">
-                    <img src="/Home/Image/Small/@item.EntityId" class="img-responsive" />
-                </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Open", "Open", new { id = item.EntityId }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.EntityId }) |
-                @Html.ActionLink("Save", "Save", new { id = item.EntityId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.EntityId })
-            </td>
+            <th>
+                @Html.Label("Image")
+            </th>
+            <th>
+                @Html.Label("Name")
+            </th>
+            <th>
+                @Html.Label("Description")
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <div style="height:100px; width:100px;">
+                        <img src="/Home/Image/Small/@item.EntityId" class="img-responsive" />
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Open", "Open", new { id = item.EntityId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EntityId }) |
+                    @Html.ActionLink("Save", "Save", new { id = item.EntityId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EntityId })
+                </td>
+            </tr>
+        }
+    </table>
 
-@if (ViewBag.dbCount != null)
+    @if (ViewBag.dbCount != null)
     {
         for (int i = 1; i <= ViewBag.dbCount; i++)
         {
-<ul class="pagination">
-    <li>@Html.ActionLink(@i.ToString(), "Pagination", "Photo", new { page = @i }, null)</li>
-</ul>
+            <ul class="pagination">
+                <li>@Html.ActionLink(@i.ToString(), "Pagination", "Photo", new { page = @i }, null)</li>
+            </ul>
         }
     }
+</div>
