@@ -1,0 +1,20 @@
+﻿@model SibersTestProject.Model.Gallery.GalleryView
+@{
+    ViewBag.Title = "OpenGallery";
+}
+
+<h2>OpenGallery</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Photos)
+        {
+            <div class="col-xs-6 col-md-3">
+                <a href="/Photo/Open/@item.EntityId" class="thumbnail">
+                    <img src="/Home/Image/Medium/@Model.EntityId" class="img-responsive" />
+                </a>
+            </div>
+        }
+        ...
+    </div>
+</div>

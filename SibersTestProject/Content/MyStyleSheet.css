@@ -1,4 +1,6 @@
-﻿.previewImage {
+﻿@import "bootstrap.css";
+
+.previewImage {
     position: relative;
     display: inline-block;
     height: 100px;
@@ -6,4 +8,33 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+}
+
+.navbar-inverse {
+    background-color: #fec14d;
+}
+
+.form-control {
+    outline: none;
+    border: 1px solid #425a09;
+    color: #3f4f15;
+    background-color: rgba(241, 241, 241, 0);
+}
+
+.navbar-inverse .navbar-brand {
+    color: rgb(0, 0, 0);
+}
+
+body {
+    background-color: rgba(254, 238, 191, 0.15);
+    color: #3f4f15;
+}
+
+.btn-default {
+    color: #3f4f15;
+    background-color: #fdeec8;
+    border-color: #3f4f15;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #1a141b;
 }

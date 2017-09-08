@@ -1,40 +1,17 @@
-﻿@model IEnumerable<SibersTestProject.Model.Home.UserView>
-@{
-    ViewBag.Title = "UserList";
-}
-<h2>UserList</h2>
-@Html.ActionLink("UploadPhoto", "Upload", "Photo")
-@Html.ActionLink("PhotoList", "Index", "Photo")
-@Html.ActionLink("PhotoListPagination", "Pagination", "Photo")
-@Html.ActionLink("GalleryCreate", "Create", "Gallery")
-@Html.ActionLink("GalleryList", "Index", "Gallery")
-@Html.ActionLink("AllPublicGalleryList", "AllPublicGallery", "Gallery")
-
-<table class="table">
-    <tr>
-        <th>Логин</th>
-        <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Email</th>
-        <th>Роли</th>
-        <th></th>
-    </tr>
-    @foreach (var user in Model)
-            {
-        <tr>
-            <td>@user.UserName</td>
-            <td>@user.FirstName</td>
-            <td>@user.LastName</td>
-            <td>@user.Email</td>
-            <td>
-                @foreach (var role in user.CurentRole)
-            {
-                @role <br>
-            }
-        </td>
-            <td>
-                @Html.RouteLink("ChangeRole", new { controller = "Admin", action = "ChangeRole", id = user.Id })
-            </td>
-    </tr>
+﻿<style type="text/css">
+    footer {
+        visibility: hidden;
     }
-</table>
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
+            <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
+            <ul class="list-unstyled">
+                <li>Bootstrap 4.0.0-beta</li>
+                <li>jQuery 3.2.1</li>
+            </ul>
+        </div>
+    </div>
+</div>

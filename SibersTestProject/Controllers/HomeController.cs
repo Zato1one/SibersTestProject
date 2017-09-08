@@ -17,24 +17,16 @@ using System.Web.Mvc;
 
 namespace SibersTestProject.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         public HomeController(IServicesHost servicesHost)
             : base(servicesHost) {
         }
 
-        [Authorize]
         public ActionResult Index()
         {
-            var users = UserManager.Users.ToList();
-            var viewUserList = new List<UserView>();
-            foreach (var user in users)
-            {
-                var userView = Mapper.Map<UserView>(user);
-                userView.CurentRole = UserManager.GetRoles(user.Id).ToList();
-                viewUserList.Add(userView);
-            }
-            return View(viewUserList);
+            return View();
         }
         public ActionResult Image(string imageResolution, Guid id)
         {

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using SibersTestProject.Common.Enums;
 using SibersTestProject.Logic.Contracts;
 using SibersTestProject.Model.Admin;
+using SibersTestProject.Model.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,18 @@ namespace SibersTestProject.Controllers
             await UserManager.AddToRoleAsync(viewModel.Id, viewModel.RoleName.ToString());
 
             return RedirectToAction("Index", "Home");
+        }
+        public ActionResult UserList()
+        {
+            var users = UserManager.Users.ToList();
+            var viewUserList = new List<UserView>();
+            foreach (var user in users)
+            {
+                var userView = Mapper.Map<UserView>(user);
+                userView.CurentRole = UserManager.GetRoles(user.Id).ToList();
+                viewUserList.Add(userView);
+            }
+            return View(viewUserList);
         }
 
 

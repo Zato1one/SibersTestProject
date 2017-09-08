@@ -1,9 +1,9 @@
 ﻿@model ICollection<SibersTestProject.Common.Model.PhotoModel>
 @{
-    ViewBag.Title = "Pagination";
+    ViewBag.Title = "PhotoList";
 }
 
-<h2>Pagination</h2>
+<h2>PhotoList</h2>
 <table class="table">
     <tr>
         <th>
@@ -21,7 +21,9 @@
     {
         <tr>
             <td>
-                <img src="/Home/Image/Small/@item.EntityId" />
+                <div style="height:100px; width:100px;">
+                    <img src="/Home/Image/Small/@item.EntityId" class="img-responsive" />
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
